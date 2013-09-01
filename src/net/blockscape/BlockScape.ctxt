@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.params=
+comment0.target=void\ setup()
+comment0.text=\r\n\ Called\ on\ game\ start\r\n
+comment1.params=mwe
+comment1.target=void\ mouseWheelMoved(java.awt.event.MouseWheelEvent)
+comment2.params=
+comment2.target=void\ draw()
+comment2.text=\r\n\ main\ game\ loop\r\n
+comment3.params=
+comment3.target=void\ keyPressed()
+comment3.text=\r\n\ called\ when\ a\ key\ is\ pressed\r\n
+comment4.params=
+comment4.target=void\ keyReleased()
+comment4.text=\r\n\ called\ when\ a\ key\ is\ released\r\n
+comment5.params=args
+comment5.target=void\ main(java.lang.String[])
+comment5.text=\r\n\ @param\ args\r\n
+comment6.params=delta
+comment6.target=void\ mouseWheel(int)
+comment6.text=\r\n\ called\ when\ the\ mouse\ wheel\ is\ used\r\n\ @param\ delta\ up\ (-1)\ down\ (1)\r\n
+numComments=7
