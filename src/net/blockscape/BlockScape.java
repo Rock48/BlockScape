@@ -2,6 +2,7 @@ package net.blockscape;
 
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.net.URL;
 
 import net.blockscape.block.Block;
 import net.blockscape.helper.DrawingAndLogicHelper;
@@ -26,8 +27,12 @@ public class BlockScape extends PApplet{
 		Player.initPlayer(width/2, 0, this);
 		ground = false;
 		size(1280,720);
-		frame.setTitle("BlockScape");
-		frame.setIconImage(getToolkit().getImage("C:\\Users\\Rock\\Desktop\\Other Java Things\\tutorials\\BlockScape\\src\\data\\block\\grass.png"));
+		if(frame!=null){
+			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+			URL icon = classLoader.getResource("data/block/grass.png");
+			frame.setTitle("BlockScape");
+			frame.setIconImage(getToolkit().getImage(icon));
+		}
 		IconHelper.init(this);
 		GameRegistry.initialize();
 		Block.blockInit();
