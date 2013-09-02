@@ -24,7 +24,7 @@ public class DrawingAndLogicHelper {
 		
 		BlockScape.distBetweenPlayerAndMouse = PApplet.dist(Player.getX()+Player.getWidth()/2, Player.getY()+Player.getHeight()/2, host.mouseX, host.mouseY)/16;
 		
-		if(BlockScape.distBetweenPlayerAndMouse< BlockScape.maxReachDistance){
+		if(BlockScape.distBetweenPlayerAndMouse< BlockScape.maxReachDistance && BlockScape.distBetweenPlayerAndMouse > 1){
 			BlockScape.canPlaceOrRemoveBlock = true;
 		}else{
 			BlockScape.canPlaceOrRemoveBlock = false;
