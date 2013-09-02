@@ -36,3 +36,5 @@ local.properties
 Export/**
 Export
 
+# OS Files #
+Thumbs.db

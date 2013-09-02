@@ -6,6 +6,7 @@ import processing.core.PImage;
 public class IconHelper {
 
 	private static PApplet host;
+	
 	/**
 	 * initializes the iconhelper
 	 * @param host_
@@ -13,13 +14,23 @@ public class IconHelper {
 	public static void init(PApplet host_){
 		host = host_;
 	}
+	
 	/**
 	 * loads a block file with the given name and returns the PImage
 	 * @param imageFile name of file
 	 * @return the image
 	 */
 	public static PImage convertStringToBlockImage(String imageFile){
-		return host.loadImage("block\\"+imageFile);
+		return host.loadImage("block\\" + imageFile);
 	}
+	
+	/**
+     * loads a entity file with the given name and returns the PImage
+     * @param imageFile name of file
+     * @return the image
+     */
+    public static PImage convertStringToEntityImage(String imageFile){
+        return host.loadImage("entity\\" + imageFile);
+    }
 	
 }

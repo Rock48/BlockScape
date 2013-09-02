@@ -1,15 +1,19 @@
 package net.blockscape;
 
+import net.blockscape.helper.IconHelper;
 import net.blockscape.world.World;
 import net.blockscape.world.WorldBlock;
 import processing.core.PApplet;
+import processing.core.PImage;
 import processing.core.PVector;
 
 public class Player {
 	
+    static PImage texture;
 	private static float x, y, width, height, xvelocity, yvelocity;
 	public static boolean right, left;
 	static PApplet host;
+	
 	/**
 	 * Initialized the player
 	 * @param x_ 
@@ -22,15 +26,19 @@ public class Player {
 		setWidth(16);
 		setHeight(30);
 		host = host_;
+		texture = IconHelper.convertStringToEntityImage("Player.png");
 	}
+	
 	/**
 	 * draws the player
 	 */
 	public static void draw(){
-		host.fill(150);
+		host.imageMode(PApplet.CORNER);
 		host.noStroke();
-		host.rect(Player.getX(), Player.getY(), Player.getWidth(), Player.getHeight());
+		//host.rect(Player.getX(), Player.getY(), Player.getWidth(), Player.getHeight());
+		host.image(texture, Player.getX(), Player.getY());
 	}
+	
 	/**
 	 * updates collisions and player position
 	 */
@@ -102,60 +110,70 @@ public class Player {
 			}
 		}
 	}
+	
 	/**
 	 * @return the x
 	 */
 	public static float getX() {
 		return x;
 	}
+	
 	/**
 	 * @param x the x to set
 	 */
 	public static void setX(float x) {
 		Player.x = x;
 	}
+	
 	/**
 	 * @return the y
 	 */
 	public static float getY() {
 		return y;
 	}
+	
 	/**
 	 * @param y the y to set
 	 */
 	public static void setY(float y) {
 		Player.y = y;
 	}
+	
 	/**
 	 * @return the yvelocity
 	 */
 	public static float getYvelocity() {
 		return yvelocity;
 	}
+	
 	/**
 	 * @param yvelocity the yvelocity to set
 	 */
 	public static void setYvelocity(float yvelocity) {
 		Player.yvelocity = yvelocity;
 	}
+	
 	/**
 	 * @return the width
 	 */
 	public static float getWidth() {
 		return width;
 	}
+	
 	/**
 	 * @param width the width to set
 	 */
 	public static void setWidth(float width) {
 		Player.width = width;
 	}
+	
 	/**
 	 * @return the height
 	 */
 	public static float getHeight() {
 		return height;
 	}
+	
 	/**
 	 * @param height the height to set
 	 */

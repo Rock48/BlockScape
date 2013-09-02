@@ -18,22 +18,25 @@ public class BlockScape extends PApplet{
 	public static boolean canPlaceOrRemoveBlock;
 	private static final long serialVersionUID = -1390024970025652247L;
 	public boolean ground;
+	
 	/**
 	 * Called on game start
 	 */
 	public void setup(){
 	    
 		World.init();
+		IconHelper.init(this);
 		Player.initPlayer(width/2, 0, this);
 		ground = false;
 		size(1280,720);
+		
 		if(frame!=null){
 			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 			URL icon = classLoader.getResource("data/block/grass.png");
 			frame.setTitle("BlockScape");
 			frame.setIconImage(getToolkit().getImage(icon));
 		}
-		IconHelper.init(this);
+		
 		GameRegistry.initialize();
 		Block.blockInit();
 		frameRate(60);
@@ -43,6 +46,7 @@ public class BlockScape extends PApplet{
 		      mouseWheel(mwe.getWheelRotation());
 		  }});
 	}
+	
 	/**
 	 * main game loop
 	 */
@@ -51,6 +55,7 @@ public class BlockScape extends PApplet{
 		DrawingAndLogicHelper.draw(this);
 		
 	}
+	
 	/**
 	 * called when a key is pressed
 	 */
@@ -65,7 +70,8 @@ public class BlockScape extends PApplet{
 			  Player.setX(mouseX);
 			  Player.setY(mouseY);
 		  }
-		}
+	}
+	
 	/**
 	 * called when a key is released
 	 */
@@ -82,11 +88,13 @@ public class BlockScape extends PApplet{
 		PApplet.main(new String[]{  "net.blockscape.BlockScape"});
 
 	}
+	
 	//Mouse Wheel Constants
 	public final int mwUP = -1;
 	public final int mwDWN = 1;
 	public int selectedBlockID = 1;
 	public Block selectedBlock = Block.blockStone;
+	
 	/**
 	 * called when the mouse wheel is used
 	 * @param delta up (-1) down (1)
@@ -102,6 +110,6 @@ public class BlockScape extends PApplet{
 		    if (selectedBlockID<1)selectedBlockID=GameRegistry.getBlockRegistrySize();
 		  }
 		  selectedBlock = GameRegistry.getBlock(selectedBlockID);
-		}
+	}
 
 }

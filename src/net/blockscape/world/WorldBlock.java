@@ -12,6 +12,7 @@ public class WorldBlock {
 	public float height;
 	PApplet host;
 	PVector worldCoords;
+	
 	/**
 	 * Creates a new block for putting in the world
 	 * @param x world x
@@ -27,6 +28,7 @@ public class WorldBlock {
 		width = 16;
 		height = 16;
 	}
+	
 	/**
 	 * updates and draws
 	 */
@@ -48,6 +50,7 @@ public class WorldBlock {
 			//}
 		}
 	}
+	
 	/**
 	 * returns if the given point is intersecting with the block
 	 * @param point that is or is not intersecting
@@ -56,6 +59,7 @@ public class WorldBlock {
 	public boolean intersectsWith(PVector point){
 		return point.x>loc.x && point.y>loc.y && point.x<loc.x+width && point.y<loc.y+height;
 	}
+	
 	/**
 	 * gets the block type
 	 * @return the block type
@@ -63,6 +67,7 @@ public class WorldBlock {
 	public Block getBlock(){
 		return block;
 	}
+	
 	/**
 	 * get the world coordanites of the block
 	 * @return the world coords
