@@ -62,7 +62,6 @@ public class BlockScape extends PApplet{
 	public void keyPressed() {
 		  if (key==' ' && ground) {
 		    Player.setYvelocity(-3);
-		    ground = false;
 		  }
 		  if (key=='a')Player.left = true;
 		  if (key=='d')Player.right = true;

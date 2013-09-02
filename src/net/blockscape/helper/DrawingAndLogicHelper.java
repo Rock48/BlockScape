@@ -66,5 +66,6 @@ public class DrawingAndLogicHelper {
 		if (host.mousePressed && host.mouseButton==PApplet.LEFT && BlockScape.canPlaceOrRemoveBlock) {
 			World.removeBlockFromWorld(host.mouseX/16, (host.height - host.mouseY)/16);
 		}
+		
 	}	
 }

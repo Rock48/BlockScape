@@ -69,23 +69,25 @@ public class Player {
 		}
 		
 		
-		
-		PVector leftSideHigh,rightSideHigh,leftSideLow,rightSideLow,topSide,bottomSide;
+		boolean onGround = false;
+		PVector leftSideHigh,rightSideHigh,leftSideLow,rightSideLow,topSide,bottomSide,groundCheck;
 		leftSideHigh = new PVector();
 		rightSideHigh = new PVector();
 		leftSideLow = new PVector();
 		rightSideLow = new PVector();
 		topSide = new PVector();
 		bottomSide = new PVector();
+		groundCheck = new PVector();
 		
 		leftSideHigh.x = leftSideLow.x = getX();
 		rightSideHigh.x = rightSideLow.x = getX()+getWidth();
 		leftSideLow.y = rightSideLow.y = getY()+(getHeight()/3)*2;
 		leftSideHigh.y = rightSideHigh.y = getY()+(getHeight()/3);
 		
-		topSide.x = bottomSide.x = getX()+getWidth()/2;
+		topSide.x = groundCheck.x = bottomSide.x = getX()+getWidth()/2;
 		topSide.y = getY();
 		bottomSide.y = getY()+getHeight();
+		groundCheck.y = bottomSide.y + 5;
 		
 		for(WorldBlock b: World.getWorld()){
 			if(b.getBlock().getDoesPlayerCollide()){
@@ -105,10 +107,21 @@ public class Player {
 				if(b.intersectsWith(bottomSide)){
 					setY(b.loc.y-getHeight());
 					setYvelocity(0);
-					((BlockScape)host).ground = true;
+					
+				}
+				if(b.intersectsWith(groundCheck)){
+					onGround = true;
 				}
 			}
 		}
+		if(onGround){
+			((BlockScape) host).ground = true;
+			
+		}else{
+			((BlockScape) host).ground = false;
+		}
+		
+		
 	}
 	
 	/**
