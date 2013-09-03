@@ -82,16 +82,21 @@ public class DrawingAndLogicHelper
      */
     public static void drawPauseMenu(PApplet host)
     {
+        for(WorldBlock b: World.getWorld())
+            b.updateAndDraw();
+        
+        Player.draw();
+        
+        
         BlockScape.returnToGame.update();
         BlockScape.exitGame.update();
         BlockScape.flyMode.update();
+        
         if (BlockScape.isFlyMode)
             BlockScape.flyMode.setText("Fly Mode: On");
         else
         	BlockScape.flyMode.setText("Fly Mode: Off");
-            
-
-            
+        
     }
 	
 }
