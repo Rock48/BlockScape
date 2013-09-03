@@ -83,16 +83,13 @@ public class DrawingAndLogicHelper
     {
         BlockScape.returnToGame.update();
         BlockScape.exitGame.update();
-        
+        BlockScape.flyMode.update();
         if (BlockScape.isFlyMode)
-            BlockScape.flyModeOn.update();
+            BlockScape.flyMode.setText("Fly Mode: On");
         else
-            BlockScape.flyModeOff.update();
+        	BlockScape.flyMode.setText("Fly Mode: Off");
             
-        if (BlockScape.returnToGame.held)
-            BlockScape.unpauseGame();
-        if (BlockScape.exitGame.held)
-            BlockScape.endgame();
+
             
     }
 	
