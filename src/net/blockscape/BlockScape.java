@@ -90,12 +90,12 @@ public class BlockScape extends PApplet
 	{
 	    if (!isPaused)
 	    {
-	        background(100,100,255);
+	        background(100, 100, 255);
 	        DrawingAndLogicHelper.drawGame(this);
 	    }
 	    else
 	    {
-	        background(200);
+	        background(100, 100, 175);
 	        DrawingAndLogicHelper.drawPauseMenu(this);
 	    }
 	}
