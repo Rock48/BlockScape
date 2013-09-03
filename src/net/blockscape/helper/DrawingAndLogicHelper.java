@@ -39,7 +39,6 @@ public class DrawingAndLogicHelper
 		
 		Player.draw();
 		
-		
 		if(((BlockScape)host).selectedBlock != null)
 		{
         	  float r = PApplet.map(PApplet.sin(rotSinTim), -1, 1, -16, 16);
@@ -74,6 +73,7 @@ public class DrawingAndLogicHelper
 
 		if (host.mousePressed && host.mouseButton==PApplet.LEFT && BlockScape.canPlaceOrRemoveBlock)
 			World.removeBlockFromWorld(host.mouseX/16, (host.height - host.mouseY)/16);
+		
 	}
 	
 	 /**

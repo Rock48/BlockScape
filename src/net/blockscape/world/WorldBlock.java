@@ -1,5 +1,6 @@
 package net.blockscape.world;
 
+import net.blockscape.BlockScape;
 import net.blockscape.block.Block;
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -37,7 +38,7 @@ public class WorldBlock {
 		host.imageMode(PApplet.CORNER);
 		host.image(texture, loc.x, loc.y);
 		
-		if (host.mouseX >= loc.x && host.mouseX < loc.x+16 && host.mouseY >= loc.y && host.mouseY < loc.y+16) {
+		if (host.mouseX >= loc.x && host.mouseX < loc.x+16 && host.mouseY >= loc.y && host.mouseY < loc.y+16 && !BlockScape.isPaused) {
 			
 			host.fill(0);
 			int y = (int)(((host.height-loc.y)/16)-1);
