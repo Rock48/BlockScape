@@ -28,11 +28,13 @@ public class BlockScape extends PApplet
 	public static boolean isPaused;
 	public static boolean isFlyMode;
 	
-	//Font
-	public static PFont mainFont;
+	//Fonts
+	public static PFont buttonFont;
+	public static PFont inGameFont;
 	
 	//Buttons
-	public static Button returnTogame;
+	public static Button returnToGame;
+	public static Button exitGame;
 	
 	
 	/**
@@ -48,9 +50,14 @@ public class BlockScape extends PApplet
 	 */
 	public void setup()
 	{
-	    mainFont = new PFont(); //Declare Game's Font
+	    buttonFont = createFont("Arial", 24, true);
+	    inGameFont = createFont("Arial", 14, true);
+	    
 	    ground = false;
 	    isFlyMode = false;
+	    
+	    returnToGame = new Button(540, 360, 200, 70, "Return To Game", true, buttonFont, this);
+	    exitGame = new Button(540, 500, 200, 70, "Exit Game", true, buttonFont, this);
 	    
 	    LogHelper.init();
 		World.init();
@@ -59,7 +66,7 @@ public class BlockScape extends PApplet
 		SaveData.initDirectory();
 		size(1280,720);
 		
-		if(frame!=null)
+		if(frame != null)
 		{
 			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 			URL icon = classLoader.getResource("data/block/grass.png");
@@ -164,14 +171,19 @@ public class BlockScape extends PApplet
 	    selectedBlock = GameRegistry.getBlock(selectedBlockID);
 	}
 	
-	public void pauseGame()
+	public static void pauseGame()
 	{
 	    isPaused = true;
 	}
 	
-	public void unpauseGame()
+	public static void unpauseGame()
 	{
 	    isPaused = false;
+	}
+	
+	public static void endgame()
+	{
+	    System.exit(0);
 	}
 
 }

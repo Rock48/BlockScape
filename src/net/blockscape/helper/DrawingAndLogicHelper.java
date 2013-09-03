@@ -5,10 +5,11 @@ import net.blockscape.Player;
 import net.blockscape.block.Block;
 import net.blockscape.world.World;
 import net.blockscape.world.WorldBlock;
+
 import processing.core.PApplet;
 
-public class DrawingAndLogicHelper {
-	
+public class DrawingAndLogicHelper
+{
 	static float rotSinTim;
 	
 	/**
@@ -17,10 +18,12 @@ public class DrawingAndLogicHelper {
 	 */
 	public static void drawGame(PApplet host)
 	{
-		host.textFont(host.createFont("Arial",14,true));
-		for(WorldBlock b: World.getWorld()){
+		host.textFont(BlockScape.inGameFont);
+		host.textAlign(PApplet.LEFT);
+		
+		for(WorldBlock b: World.getWorld())
 			b.updateAndDraw();
-		}
+
 		rotSinTim += 0.05;
 		Player.setYvelocity(Player.getYvelocity() + 0.1F);
 		
@@ -36,7 +39,8 @@ public class DrawingAndLogicHelper {
 		Player.draw();
 		
 		
-		if(((BlockScape)host).selectedBlock != null){
+		if(((BlockScape)host).selectedBlock != null)
+		{
         	  float r = PApplet.map(PApplet.sin(rotSinTim), -1, 1, -16, 16);
         	  host.pushMatrix();
         
@@ -46,7 +50,8 @@ public class DrawingAndLogicHelper {
         	  host.rotate(PApplet.radians(r));
         	  host.image(((BlockScape)host).selectedBlock.getTexture(),0, 0, 16, 16);
         	  
-        	  if(!BlockScape.canPlaceOrRemoveBlock){
+        	  if(!BlockScape.canPlaceOrRemoveBlock)
+        	  {
         		  host.fill(0,100);
         		  host.rect(0, 0, 16, 16);
         	  }
@@ -63,13 +68,11 @@ public class DrawingAndLogicHelper {
 			((BlockScape)host).selectedBlock = Block.blockStone;
 		
 		//Check for block placement and removal
-		if (host.mousePressed && host.mouseButton==PApplet.RIGHT && BlockScape.canPlaceOrRemoveBlock) {
+		if (host.mousePressed && host.mouseButton==PApplet.RIGHT && BlockScape.canPlaceOrRemoveBlock)
 			World.addBlockWithoutReplacing(new WorldBlock(host.mouseX/16, (host.height - host.mouseY)/16, ((BlockScape)host).selectedBlock, host));
-		}
-		if (host.mousePressed && host.mouseButton==PApplet.LEFT && BlockScape.canPlaceOrRemoveBlock) {
+
+		if (host.mousePressed && host.mouseButton==PApplet.LEFT && BlockScape.canPlaceOrRemoveBlock)
 			World.removeBlockFromWorld(host.mouseX/16, (host.height - host.mouseY)/16);
-		}
-		
 	}
 	
 	 /**
@@ -78,7 +81,13 @@ public class DrawingAndLogicHelper {
      */
     public static void drawPauseMenu(PApplet host)
     {
+        BlockScape.returnToGame.update();
+        BlockScape.exitGame.update();
         
+        if (BlockScape.returnToGame.held)
+            BlockScape.unpauseGame();
+        if (BlockScape.exitGame.held)
+            BlockScape.endgame();
     }
 	
 }

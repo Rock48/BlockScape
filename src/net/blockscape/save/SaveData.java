@@ -2,12 +2,14 @@ package net.blockscape.save;
 
 import java.io.File;
 import java.nio.file.*;
+import java.util.ArrayList;
 
 import net.blockscape.helper.FileHelper;
 import net.blockscape.helper.LogHelper;
 
 public class SaveData
 {
+    private static ArrayList<WorldSave> saves;
 
     public static void initDirectory()
     {
@@ -22,7 +24,12 @@ public class SaveData
         }
     }
     
-    public static void createWorldFile(WorldSave world)
+    public static void addWorld(WorldSave world)
+    {
+        saves.add(world);
+    }
+    
+    /*public static void createWorldFile())
     {
         try
         {
@@ -35,7 +42,7 @@ public class SaveData
             return;
         }
         
-    }
+    }*/
     
     public static void saveGame()
     {
