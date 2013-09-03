@@ -35,6 +35,8 @@ public class BlockScape extends PApplet
 	//Buttons
 	public static Button returnToGame;
 	public static Button exitGame;
+	public static Button flyModeOn;
+	public static Button flyModeOff;
 	
 	
 	/**
@@ -58,7 +60,9 @@ public class BlockScape extends PApplet
 	    
 	    returnToGame = new Button(540, 360, 200, 70, "Return To Game", true, buttonFont, this);
 	    exitGame = new Button(540, 500, 200, 70, "Exit Game", true, buttonFont, this);
-	    
+	    flyModeOn = new Button(540, 220, 200, 70, "Fly Mode: ON", true, buttonFont, this);
+        flyModeOff = new Button(540, 220, 200, 70, "Fly Mode: OFF", true, buttonFont, this);
+        
 	    LogHelper.init();
 		World.init();
 		IconHelper.init(this);
@@ -185,5 +189,10 @@ public class BlockScape extends PApplet
 	{
 	    System.exit(0);
 	}
-
+	
+	public void mouseReleased()
+	{
+	    if (BlockScape.flyModeOn.held || BlockScape.flyModeOff.held)
+	        isFlyMode = !isFlyMode;
+	}
 }

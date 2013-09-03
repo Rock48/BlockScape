@@ -84,10 +84,16 @@ public class DrawingAndLogicHelper
         BlockScape.returnToGame.update();
         BlockScape.exitGame.update();
         
+        if (BlockScape.isFlyMode)
+            BlockScape.flyModeOn.update();
+        else
+            BlockScape.flyModeOff.update();
+            
         if (BlockScape.returnToGame.held)
             BlockScape.unpauseGame();
         if (BlockScape.exitGame.held)
             BlockScape.endgame();
+            
     }
 	
 }
