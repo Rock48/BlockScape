@@ -9,6 +9,7 @@ import net.blockscape.helper.DrawingAndLogicHelper;
 import net.blockscape.helper.IconHelper;
 import net.blockscape.helper.TerrainGenerationHelper;
 import net.blockscape.registry.GameRegistry;
+import net.blockscape.save.SaveData;
 import net.blockscape.world.World;
 import processing.core.PApplet;
 
@@ -29,6 +30,7 @@ public class BlockScape extends PApplet{
 		Player.initPlayer(width/2, 0, this);
 		ground = false;
 		size(1280,720);
+		SaveData.initDirectory();
 		
 		if(frame!=null){
 			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -53,7 +55,6 @@ public class BlockScape extends PApplet{
 	public void draw(){
 		background(100,100,255);
 		DrawingAndLogicHelper.draw(this);
-		
 	}
 	
 	/**
