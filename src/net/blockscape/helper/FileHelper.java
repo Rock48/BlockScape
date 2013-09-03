@@ -9,12 +9,12 @@ public class FileHelper
 
     public static String getFileDirectoryString()
     {
-        return "Users" + File.separator + System.getProperty("user.name") + File.separator + "AppData" + File.separator + "Roaming" + File.separator + "BlockScape" + File.separator;
+        return "BlockScape" + File.separator;
     }
     
     public static Path getPathFromString(String path)
     {
-        return FileSystems.getDefault().getPath("C:" + File.separator, path);
+        return FileSystems.getDefault().getPath(System.getenv("APPDATA") + File.separator, path);
     }
     
 }
