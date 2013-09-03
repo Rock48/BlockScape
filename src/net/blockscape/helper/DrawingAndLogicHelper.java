@@ -3,6 +3,7 @@ package net.blockscape.helper;
 import net.blockscape.BlockScape;
 import net.blockscape.Player;
 import net.blockscape.block.Block;
+import net.blockscape.lib.MainReference;
 import net.blockscape.world.World;
 import net.blockscape.world.WorldBlock;
 
@@ -29,7 +30,7 @@ public class DrawingAndLogicHelper
 		
 		BlockScape.distBetweenPlayerAndMouse = PApplet.dist(Player.getX() + Player.getWidth() / 2, Player.getY() + Player.getHeight() / 2, host.mouseX, host.mouseY)/16;
 		
-		if(BlockScape.distBetweenPlayerAndMouse < BlockScape.maxReachDistance && BlockScape.distBetweenPlayerAndMouse > 1)
+		if(BlockScape.distBetweenPlayerAndMouse < MainReference.MAX_REACH && BlockScape.distBetweenPlayerAndMouse > 1)
 			BlockScape.canPlaceOrRemoveBlock = true;
 		else
 			BlockScape.canPlaceOrRemoveBlock = false;

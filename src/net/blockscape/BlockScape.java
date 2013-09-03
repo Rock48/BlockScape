@@ -17,7 +17,7 @@ import processing.core.PFont;
 
 public class BlockScape extends PApplet
 {
-	public static final int maxReachDistance = 5; //Distance you can build away from you
+	
 	private static final long serialVersionUID = -1390024970025652247L; //Dunno
 	
 	public static float distBetweenPlayerAndMouse; //The distance between the player and the user's mouse
