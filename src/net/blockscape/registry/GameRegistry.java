@@ -18,7 +18,11 @@ public class GameRegistry {
 	 * @param block to add
 	 */
 	public static void registerBlock(Block block){
-		blocks.add(block);
+		if(block!=null){
+			blocks.add(block);
+		}else{
+			throw new NullPointerException();
+		}
 	}
 	/**
 	 * removes a block with the given blockID from the registry
@@ -35,7 +39,7 @@ public class GameRegistry {
 			blocks.remove(buffer);
 			System.out.println("Successfully removed "+buffer.getName());
 		}else{
-			System.out.println("Block not found");
+			throw new RuntimeException("Block not found");
 		}
 	}
 	/**
@@ -49,7 +53,7 @@ public class GameRegistry {
 				return b;
 			}
 		}
-		return null;
+		throw new RuntimeException("Invalid Block ID");
 	}
 	/**
 	 * returns the size of the block registry
