@@ -1,3 +1,10 @@
+/*
+ * BlockScape
+ * Written and Developed by Rock
+ * Help from Darth
+ */
+
+
 package net.blockscape;
 
 import java.awt.event.MouseWheelEvent;

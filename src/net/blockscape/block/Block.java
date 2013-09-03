@@ -20,6 +20,7 @@ public class Block {
 	public static Block oreIron;
 	public static Block oreCoal;
 	public static Block oreDiamond;
+	public static Block blockBlueThing;
 	
 	
 	/**
@@ -35,6 +36,7 @@ public class Block {
 		oreIron = new BlockIronOre(7).setName("Iron Ore");
 		oreCoal = new BlockCoalOre(8).setName("Coal Ore");
 		oreDiamond = new BlockDiamondOre(9).setName("Diamond Ore");
+		blockBlueThing = new BlockBlue(10).setName("Blue Thing");
 		
 		regInit();
 	}
@@ -51,6 +53,7 @@ public class Block {
 		GameRegistry.registerBlock(oreIron);
 		GameRegistry.registerBlock(oreCoal);
 		GameRegistry.registerBlock(oreDiamond);
+		GameRegistry.registerBlock(blockBlueThing);
 	}
 
 	
