@@ -7,7 +7,8 @@ import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
 
-public class Player {
+public class Player
+ {
 	
     static PImage texture;
 	private static float x, y, width, height, xvelocity, yvelocity;
@@ -20,7 +21,8 @@ public class Player {
 	 * @param y_
 	 * @param host_ game window for drawing
 	 */
-	public static void initPlayer(int x_, int y_, PApplet host_) {
+	public static void initPlayer(int x_, int y_, PApplet host_)
+	{
 		setX(x_);
 		setY(y_);
 		setWidth(16);
@@ -32,40 +34,49 @@ public class Player {
 	/**
 	 * draws the player
 	 */
-	public static void draw(){
+	public static void draw()
+	{
 		host.imageMode(PApplet.CORNER);
 		host.noStroke();
-		//host.rect(Player.getX(), Player.getY(), Player.getWidth(), Player.getHeight());
 		host.image(texture, Player.getX(), Player.getY());
 	}
 	
 	/**
 	 * updates collisions and player position
 	 */
-	public static void update() {
-			
+	public static void update()
+	{
 		setY(getY() + getYvelocity());
 		setX(getX() + xvelocity);
-		if (xvelocity>-0.1&&xvelocity<0.1){
+		
+		if (xvelocity > -0.1 && xvelocity < 0.1)
 			xvelocity = 0;
+		
+		if (xvelocity > 0)
+		{
+			xvelocity -= 0.01;
+			
+			if (((BlockScape) host).ground)
+				xvelocity -= 0.09;
 		}
-		if (xvelocity>0) {
-			xvelocity-=0.01;
-			if (((BlockScape) host).ground) {
-				xvelocity-=0.09;
-			}
+		
+		if (xvelocity<0)
+		{
+			xvelocity += 0.01;
+			
+			if (((BlockScape) host).ground)
+				xvelocity += 0.09;
 		}
-		if (xvelocity<0) {
-			xvelocity+=0.01;
-			if (((BlockScape) host).ground) {
-				xvelocity+=0.09;
-			}
+		
+		if (xvelocity >= -2)
+		{
+			if (left)
+			    xvelocity-=0.15;
 		}
-		if (xvelocity>=-2) {
-			if (left)xvelocity-=0.15;
-		}
-		if (xvelocity<=2) {
-			if (right)xvelocity+=0.15;
+		if (xvelocity <= 2)
+		{
+			if (right)
+			    xvelocity += 0.15;
 		}
 		
 		
@@ -89,39 +100,44 @@ public class Player {
 		bottomSide.y = getY()+getHeight();
 		groundCheck.y = bottomSide.y + 5;
 		
-		for(WorldBlock b: World.getWorld()){
-			if(b.getBlock().getDoesPlayerCollide()){
-				if(b.intersectsWith(leftSideHigh) || b.intersectsWith(leftSideLow)){
+		for(WorldBlock b: World.getWorld())
+		{
+			if(b.getBlock().getDoesPlayerCollide())
+			{
+				if(b.intersectsWith(leftSideHigh) || b.intersectsWith(leftSideLow))
+				{
 					setX(b.loc.x+b.width);
 					xvelocity=0;
 				}
-				if(b.intersectsWith(rightSideHigh) || b.intersectsWith(rightSideLow)){
+				
+				if(b.intersectsWith(rightSideHigh) || b.intersectsWith(rightSideLow))
+				{
 					setX(b.loc.x-getWidth());
 					xvelocity=0;
 				}
 				
-				if(b.intersectsWith(topSide)){
+				if(b.intersectsWith(topSide))
+				{
 					setY(b.loc.y+b.height);
 					setYvelocity(0);
 				}
-				if(b.intersectsWith(bottomSide)){
+				
+				if(b.intersectsWith(bottomSide))
+				{
 					setY(b.loc.y-getHeight());
 					setYvelocity(0);
 					
 				}
-				if(b.intersectsWith(groundCheck)){
+				
+				if(b.intersectsWith(groundCheck))
 					onGround = true;
-				}
 			}
 		}
-		if(onGround){
+		
+		if(onGround)
 			((BlockScape) host).ground = true;
-			
-		}else{
+		else
 			((BlockScape) host).ground = false;
-		}
-		
-		
 	}
 	
 	/**

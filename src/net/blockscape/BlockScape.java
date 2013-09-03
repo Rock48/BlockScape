@@ -17,7 +17,6 @@ import processing.core.PFont;
 
 public class BlockScape extends PApplet
 {
-	
 	private static final long serialVersionUID = -1390024970025652247L; //Dunno
 	
 	public static float distBetweenPlayerAndMouse; //The distance between the player and the user's mouse
@@ -59,7 +58,7 @@ public class BlockScape extends PApplet
 	    
 	    returnToGame = new Button(540, 360, 200, 70, "Return To Game", true, buttonFont, this);
 	    exitGame = new Button(540, 500, 200, 70, "Exit Game", true, buttonFont, this);
-	    flyMode = new Button(540, 220, 200, 70, "Fly Mode: ON", true, buttonFont, this);
+	    flyMode = new Button(540, 220, 200, 70, "Fly Mode: Off", true, buttonFont, this);
         
 	    LogHelper.init();
 		World.init();
