@@ -13,13 +13,24 @@ import net.blockscape.save.SaveData;
 import net.blockscape.world.World;
 import processing.core.PApplet;
 
-public class BlockScape extends PApplet{
+public class BlockScape extends PApplet
+{
 	public static final int maxReachDistance = 5;
 	public static float distBetweenPlayerAndMouse;
 	public static boolean canPlaceOrRemoveBlock;
 	private static final long serialVersionUID = -1390024970025652247L;
 	public boolean ground;
+	public static boolean isPaused;
+	public static boolean isFlyMode;
 	
+	/**
+     * @param args
+     */
+    public static void main(String[] args)
+    {
+        PApplet.main(new String[]{"net.blockscape.BlockScape"});
+    }
+    
 	/**
 	 * Called on game start
 	 */
@@ -31,6 +42,7 @@ public class BlockScape extends PApplet{
 		ground = false;
 		size(1280,720);
 		SaveData.initDirectory();
+		isFlyMode = false;
 		
 		if(frame!=null){
 			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -60,33 +72,42 @@ public class BlockScape extends PApplet{
 	/**
 	 * called when a key is pressed
 	 */
-	public void keyPressed() {
-		  if (key==' ' && ground) {
-		    Player.setYvelocity(-3);
-		  }
-		  if (key=='a')Player.left = true;
-		  if (key=='d')Player.right = true;
-		  if (key==ENTER){
-			  Player.setX(mouseX);
-			  Player.setY(mouseY);
-		  }
+	public void keyPressed()
+	{
+	    if (isPaused)
+	    {
+	        key = 0;
+	        return;
+	    }
+	    
+    	if (key == ' ' && ground)
+    	    Player.setYvelocity(-3);
+    	if (key == 'a')
+    	    Player.left = true;
+    	if (key == 'd')
+    	    Player.right = true;
+    	if (key == ENTER)
+    	{
+    		Player.setX(mouseX);
+    		Player.setY(mouseY);
+    	}
+    	
+    	if (key == ESC)
+    	{
+    	    key = 0;
+    	    pauseGame();
+    	}
 	}
 	
 	/**
 	 * called when a key is released
 	 */
-	public void keyReleased() {
-		  if (key=='a')Player.left = false;
-		  if (key=='d')Player.right = false;
-		  if (key=='r')setup();
-		}
-	
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		PApplet.main(new String[]{  "net.blockscape.BlockScape"});
-
+	public void keyReleased()
+	{
+		  if (key=='a')
+		      Player.left = false;
+		  if (key=='d')
+		      Player.right = false;
 	}
 	
 	//Mouse Wheel Constants
@@ -110,6 +131,11 @@ public class BlockScape extends PApplet{
 		    if (selectedBlockID<1)selectedBlockID=GameRegistry.getBlockRegistrySize();
 		  }
 		  selectedBlock = GameRegistry.getBlock(selectedBlockID);
+	}
+	
+	public void pauseGame()
+	{
+	    isPaused = true;
 	}
 
 }
