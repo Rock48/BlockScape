@@ -18,6 +18,7 @@ import net.blockscape.lib.MainReference;
 import net.blockscape.registry.GameRegistry;
 import net.blockscape.save.SaveData;
 import net.blockscape.world.World;
+import net.blockscape.world.WorldBlock;
 
 import processing.core.PApplet;
 import processing.core.PFont;
@@ -128,6 +129,16 @@ public class BlockScape extends PApplet
     		Player.setX(mouseX);
     		Player.setY(mouseY);
     	}
+    	if (key == 'r' && !World.isBlockLocationOpen(mouseX / 16, (height - mouseY) / 16))
+    	{
+    	    WorldBlock block = World.getBlock(mouseX / 16, (height - mouseY) / 16);
+            
+            if (block != null)
+            {
+                selectedBlockID = block.getBlock().blockID;
+                selectedBlock = block.getBlock();
+            }
+    	}
     	
     	if (key == ESC)
     	{
@@ -150,8 +161,8 @@ public class BlockScape extends PApplet
 	//Mouse Wheel Constants
 	public final int mwUP = -1;
 	public final int mwDWN = 1;
-	public int selectedBlockID = 1;
-	public Block selectedBlock = Block.blockStone; //Default Block
+	public static int selectedBlockID = 1;
+	public static Block selectedBlock = Block.blockStone; //Default Block
 	
 	/**
 	 * called when the mouse wheel is used

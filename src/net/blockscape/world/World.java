@@ -30,11 +30,8 @@ public class World
 	public static boolean addBlockWithoutReplacing(WorldBlock block)
 	{
 		
-		for(WorldBlock b: blocks)
-		{
-			if(b.getCoords().equals(block.getCoords()))
-				return false;
-		}
+		if (!isBlockLocationOpen(block.getCoords().x, block.getCoords().y))
+		    return false;
 		
 		blocks.add(block);
 		return true;
@@ -44,7 +41,8 @@ public class World
 	 * removes a block from the world
 	 * @param blockToRemove
 	 */
-	public static void removeBlockFromWorld(WorldBlock blockToRemove){
+	public static void removeBlockFromWorld(WorldBlock blockToRemove)
+	{
 		blocks.remove(blockToRemove);
 	}
 	
@@ -52,7 +50,8 @@ public class World
 	 * removes a block from the world with the index from the arraylist
 	 * @param index
 	 */
-	public static void removeBlockFromWorld(int index){
+	public static void removeBlockFromWorld(int index)
+	{
 		blocks.remove(index);
 	}
 	
@@ -61,17 +60,21 @@ public class World
 	 * @param x
 	 * @param y
 	 */
-	public static void removeBlockFromWorld(int x, int y){
+	public static void removeBlockFromWorld(int x, int y)
+	{
 		WorldBlock temp = null;
-		for(WorldBlock b: blocks){
-			if(b.getCoords().equals(new PVector(x,y))){
+		
+		for(WorldBlock b: blocks)
+		{
+			if(b.getCoords().equals(new PVector(x, y)))
+			{
 				temp = b;
 				break;
 			}
 		}
-		if(temp != null){
+		
+		if(temp != null)
 			blocks.remove(temp);
-		}
 	}
 	
 	/**
@@ -95,5 +98,35 @@ public class World
 			blocks.remove(temp);
 
 		blocks.add(block);
+	}
+	
+	public static WorldBlock getBlock(int x, int y)
+	{
+	    for(WorldBlock b: blocks)
+        {
+            if(b.getCoords().equals(new PVector(x, y)))
+            {
+                return b;
+            }
+        }
+	    
+	    return null;
+	}
+	
+	/**
+	 * Will return whether or not a block space is not filled in the world.
+	 * 
+	 * @param WorldBlock block
+	 * @return True if the space is free
+	 */
+	public static boolean isBlockLocationOpen(float x, float y)
+	{
+	    for(WorldBlock b: blocks)
+        {
+            if(b.getCoords().equals(new PVector(x, y)))
+                return false;
+        }
+	    
+	    return true;
 	}
 }
