@@ -9,9 +9,10 @@ public class WorldSave
     private String dispName;
     private ArrayList<WorldBlock> blocks;
     
-    public WorldSave(String dispName_)
+    public WorldSave(String dispName_, ArrayList<WorldBlock> blocks_)
     {
         this.dispName = dispName_;
+        this.blocks = blocks_;
     }
     
     public String getName()

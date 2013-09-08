@@ -17,6 +17,7 @@ import net.blockscape.helper.*;
 import net.blockscape.lib.MainReference;
 import net.blockscape.registry.GameRegistry;
 import net.blockscape.save.SaveData;
+import net.blockscape.save.WorldSave;
 import net.blockscape.world.World;
 import net.blockscape.world.WorldBlock;
 
@@ -34,6 +35,7 @@ public class BlockScape extends PApplet
 	public boolean ground;
 	public static boolean isPaused;
 	public static boolean isFlyMode;
+	public static boolean isSaving;
 	
 	//Fonts
 	public static PFont buttonFont;
@@ -69,10 +71,14 @@ public class BlockScape extends PApplet
 	    flyMode = new Button(540, 220, 200, 70, "Fly Mode: Off", true, buttonFont, this);
         
 	    LogHelper.init();
-		World.init();
+	    SaveData.initDirectory();
+		
+	    World.init();
+		SaveData.addWorld(new WorldSave("testWorld", World.getWorld()));
+		
 		IconHelper.init(this);
 		Player.initPlayer(width/2, 0, this);
-		SaveData.initDirectory();
+		
 		size(1280,720);
 		
 		if(frame != null)
@@ -97,6 +103,7 @@ public class BlockScape extends PApplet
 	{
 	    if (!isPaused)
 	    {
+	        isSaving = true;
 	        background(100, 100, 255);
 	        DrawingAndLogicHelper.drawGame(this);
 	    }
@@ -104,6 +111,13 @@ public class BlockScape extends PApplet
 	    {
 	        background(100, 100, 175);
 	        DrawingAndLogicHelper.drawPauseMenu(this);
+	        
+	        /*if (isSaving)
+	        {
+	            SaveData.saveGame(new WorldSave("testWorld", World.getWorld()));
+	            isSaving = false;
+	        }*/
+	        
 	    }
 	}
 	

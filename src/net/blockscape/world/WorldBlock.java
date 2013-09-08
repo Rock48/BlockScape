@@ -22,8 +22,8 @@ public class WorldBlock {
 	 * @param host the game window
 	 */
 	public WorldBlock(float x, float y, Block block, PApplet host) {
-		loc = new PVector(x*16, (host.height/16-y-1)*16);
-		worldCoords = new PVector(x,y);
+		loc = new PVector(x * 16, (host.height / 16 - y - 1) * 16);
+		worldCoords = new PVector(x, y);
 		this.host = host;
 		this.block = block;
 		width = 16;
