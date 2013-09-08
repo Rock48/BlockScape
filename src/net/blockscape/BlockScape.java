@@ -112,11 +112,11 @@ public class BlockScape extends PApplet
 	        background(100, 100, 175);
 	        DrawingAndLogicHelper.drawPauseMenu(this);
 	        
-	        /*if (isSaving)
+	        if (isSaving)
 	        {
 	            SaveData.saveGame(new WorldSave("testWorld", World.getWorld()));
 	            isSaving = false;
-	        }*/
+	        }
 	        
 	    }
 	}
