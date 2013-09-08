@@ -72,14 +72,14 @@ public class SaveData
         try
         {
             LogHelper.info("EARLY!!!");
-            File worldFile = new File(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + "World.data");
+            File worldFile = new File(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + "World.jif");
             if (worldFile.exists())
             {
                 LogHelper.info("WAY!!");
                 if (worldFile.delete())
                 {
                     LogHelper.info("BEFORE!!!");
-                    File newWorldFile = new File(Files.createFile(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + "World.data")).toString());
+                    File newWorldFile = new File(Files.createFile(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + "World.jif")).toString());
                     writeToWorldFile(newWorldFile, saves.get(index).getBlocks());
                     LogHelper.info("AFTER!!!");
                 }
