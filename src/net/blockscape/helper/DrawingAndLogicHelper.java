@@ -8,6 +8,7 @@ import net.blockscape.world.World;
 import net.blockscape.world.WorldBlock;
 
 import processing.core.PApplet;
+import processing.core.PConstants;
 
 public class DrawingAndLogicHelper
 {
@@ -97,6 +98,11 @@ public class DrawingAndLogicHelper
         else
         	BlockScape.flyMode.setText("Fly Mode: Off");
         
+        if (BlockScape.isSaving)
+        {
+            host.textAlign(PConstants.CENTER);
+            host.text("Saving. . .", host.width / 2, 10);
+        }
     }
 	
 }
