@@ -6,9 +6,11 @@ import java.io.PrintWriter;
 import java.nio.file.*;
 import java.util.ArrayList;
 
+import net.blockscape.Player;
 import net.blockscape.helper.FileHelper;
 import net.blockscape.helper.LogHelper;
 import net.blockscape.lib.MainReference;
+import net.blockscape.lib.Saves;
 import net.blockscape.world.WorldBlock;
 
 public class SaveData
@@ -21,7 +23,8 @@ public class SaveData
         
         try
         {
-            Files.createDirectories(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves"));
+            if (!Files.exists(FileHelper.getPathFromString(FileHelper.getFileDirectoryString())))
+                Files.createDirectories(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves"));
         }
         catch (Exception e)
         {
@@ -36,12 +39,16 @@ public class SaveData
         createWorldFile(saves.indexOf(world));
     }
     
-    public static void createWorldFile(int index)
+    private static void createWorldFile(int index)
     {
         try
         {
-            Files.createDirectory(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName()));
-            Files.createFile(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + "World.jif"));
+            if (!Files.exists(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName())))
+                Files.createDirectory(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName()));
+            if (!Files.exists(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + Saves.WORLD_FILE_NAME)))
+                Files.createFile(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + Saves.WORLD_FILE_NAME));
+            if (!Files.exists(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + Saves.PLAYER_FILE_NAME)))
+                Files.createFile(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + Saves.PLAYER_FILE_NAME));
         }
         catch (Exception e)
         {
@@ -59,6 +66,7 @@ public class SaveData
             if (save.getName() == newWorld.getName())
             {
                 saves.set(saves.indexOf(save), newWorld);
+                prepareForPlayerWrite(saves.indexOf(newWorld));
                 prepareForWorldWrite(saves.indexOf(newWorld));
                 return;
             }
@@ -71,17 +79,14 @@ public class SaveData
     {
         try
         {
-            LogHelper.info("EARLY!!!");
-            File worldFile = new File(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + "World.jif");
+            File worldFile = new File(FileHelper.getAbsoluteFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + Saves.WORLD_FILE_NAME);
+            
             if (worldFile.exists())
             {
-                LogHelper.info("WAY!!");
                 if (worldFile.delete())
                 {
-                    LogHelper.info("BEFORE!!!");
-                    File newWorldFile = new File(Files.createFile(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + "World.jif")).toString());
+                    File newWorldFile = new File(Files.createFile(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + Saves.WORLD_FILE_NAME)).toString());
                     writeToWorldFile(newWorldFile, saves.get(index).getBlocks());
-                    LogHelper.info("AFTER!!!");
                 }
             }
         }
@@ -102,10 +107,53 @@ public class SaveData
             for (WorldBlock b: blocks)
             {
                 output.print(b.getBlock().blockID + " ");
-                output.print(b.getCoords().x + " ");
-                output.println(b.getCoords().y);
+                output.print((int) b.getCoords().x + " ");
+                output.println((int) b.getCoords().y);
             }
             
+        }
+        catch (Exception e)
+        {
+            LogHelper.severe(MainReference.FILE_ERROR_MSG);
+            e.printStackTrace();
+        }
+        finally
+        {
+            output.close();
+        }
+    }
+    
+    private static void prepareForPlayerWrite(int index)
+    {
+        try
+        {
+            File playerFile = new File(FileHelper.getAbsoluteFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + Saves.PLAYER_FILE_NAME);
+            
+            if (playerFile.exists())
+            {
+                if (playerFile.delete())
+                {
+                    File newPlayerFile = new File(Files.createFile(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + Saves.PLAYER_FILE_NAME)).toString());
+                    writeToPlayerFile(newPlayerFile);
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            LogHelper.severe(MainReference.FILE_ERROR_MSG);
+            e.printStackTrace();
+        }
+    }
+    
+    public static void writeToPlayerFile(File playerFile) throws FileNotFoundException
+    {
+        PrintWriter output = new PrintWriter(playerFile);
+        
+        try
+        {
+            output.print((int) Player.getX());
+            output.print(" ");
+            output.print((int) Player.getY());
         }
         catch (Exception e)
         {

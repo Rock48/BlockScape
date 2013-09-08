@@ -12,6 +12,11 @@ public class FileHelper
         return "BlockScape" + File.separator;
     }
     
+    public static String getAbsoluteFileDirectoryString()
+    {
+        return System.getenv("APPDATA") + File.separator + "BlockScape" + File.separator;
+    }
+    
     public static Path getPathFromString(String path)
     {
         return FileSystems.getDefault().getPath(System.getenv("APPDATA") + File.separator, path);
