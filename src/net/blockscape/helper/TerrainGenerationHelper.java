@@ -37,9 +37,9 @@ public class TerrainGenerationHelper {
 					else World.setBlock(new WorldBlock(x, y, Block.blockStone, host));
 				}
 			}
-			if(tree<10){
+			
+			if(tree < 10)
 				generateTree(x,(int)(ymh+1),host);
-			}
 		}
 	}
 	/**

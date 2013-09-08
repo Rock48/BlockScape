@@ -2,16 +2,20 @@ package net.blockscape.save;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import net.blockscape.Player;
+import net.blockscape.block.Block;
 import net.blockscape.helper.FileHelper;
 import net.blockscape.helper.LogHelper;
 import net.blockscape.lib.MainReference;
 import net.blockscape.lib.Saves;
 import net.blockscape.world.WorldBlock;
+import processing.core.PApplet;
 
 public class SaveData
 {
@@ -33,10 +37,24 @@ public class SaveData
         }
     }
     
+    private static int getWorldMatch(String name)
+    {
+        for (WorldSave save: saves)
+        {
+            if (save.getName() == name)
+            {
+                return saves.indexOf(save);
+            }
+        }
+        
+        return -1;
+    }
+    
     public static void addWorld(WorldSave world)
     {
         saves.add(world);
         createWorldFile(saves.indexOf(world));
+        saveGame(world);
     }
     
     private static void createWorldFile(int index)
@@ -61,16 +79,16 @@ public class SaveData
     
     public static void saveGame(WorldSave newWorld)
     {
-        for (WorldSave save: saves)
+        int index = getWorldMatch(newWorld.getName());
+        
+        if (index != -1)
         {
-            if (save.getName() == newWorld.getName())
-            {
-                saves.set(saves.indexOf(save), newWorld);
-                prepareForPlayerWrite(saves.indexOf(newWorld));
-                prepareForWorldWrite(saves.indexOf(newWorld));
-                return;
-            }
+            saves.set(index, newWorld);
+            prepareForPlayerWrite(index);
+            prepareForWorldWrite(index);
+            return;
         }
+
         
         LogHelper.severe("Could not find matching world to save!!");
     }
@@ -163,6 +181,94 @@ public class SaveData
         finally
         {
             output.close();
+        }
+    }
+    
+    public static int getPlayerX(String name) throws IOException
+    {
+        int index = getWorldMatch(name);
+            
+        if (index == -1)
+            return 0;
+        
+        Scanner input = new Scanner(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + Saves.PLAYER_FILE_NAME));
+        
+        try
+        {
+            return input.nextInt();
+        }
+        catch (Exception e)
+        {
+            LogHelper.severe(MainReference.FILE_ERROR_MSG);
+            e.printStackTrace();
+            return 0;
+        }
+        finally
+        {
+            input.close();
+        }
+    }
+    
+    public static int getPlayerY(String name) throws IOException
+    {
+        int index = getWorldMatch(name);
+            
+        if (index == -1)
+            return 0;
+        
+        Scanner input = new Scanner(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + Saves.PLAYER_FILE_NAME));
+        
+        try
+        {
+            input.nextInt();
+            
+            return input.nextInt();
+        }
+        catch (Exception e)
+        {
+            LogHelper.severe(MainReference.FILE_ERROR_MSG);
+            e.printStackTrace();
+            return 0;
+        }
+        finally
+        {
+            input.close();
+        }
+    }
+    
+    public static ArrayList<WorldBlock> getWorldSaveData(String name, PApplet host) throws IOException
+    {
+        int index = getWorldMatch(name);
+        
+        if (index == -1)
+            return null;
+        
+        Scanner input = new Scanner(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + Saves.WORLD_FILE_NAME));
+        
+        ArrayList<WorldBlock> blocks = new ArrayList<WorldBlock>();
+        
+        try
+        {
+            while (input.hasNext())
+            {
+                int id = input.nextInt();
+                int x = input.nextInt();
+                int y = input.nextInt();
+                
+                blocks.add(new WorldBlock(x, y, new Block(id), host));
+            }
+            
+            return blocks;
+        }
+        catch (Exception e)
+        {
+            LogHelper.severe(MainReference.FILE_ERROR_MSG);
+            e.printStackTrace();
+            return null;
+        }
+        finally
+        {
+            input.close();
         }
     }
     
