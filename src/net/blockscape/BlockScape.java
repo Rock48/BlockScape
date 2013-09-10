@@ -9,6 +9,7 @@ package net.blockscape;
 
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.io.IOException;
 import java.net.URL;
 
 import net.blockscape.block.Block;
@@ -170,6 +171,14 @@ public class BlockScape extends PApplet
     	    Player.left = false;
     	if (key=='d')
     	    Player.right = false;
+    	if (key=='l'){
+    		try {
+				World.setWorld(SaveData.getWorldSaveData("testWorld", this));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
 	}
 	
 	//Mouse Wheel Constants

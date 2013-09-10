@@ -14,6 +14,7 @@ import net.blockscape.helper.FileHelper;
 import net.blockscape.helper.LogHelper;
 import net.blockscape.lib.MainReference;
 import net.blockscape.lib.Saves;
+import net.blockscape.registry.GameRegistry;
 import net.blockscape.world.WorldBlock;
 import processing.core.PApplet;
 
@@ -255,7 +256,7 @@ public class SaveData
                 int x = input.nextInt();
                 int y = input.nextInt();
                 
-                blocks.add(new WorldBlock(x, y, new Block(id), host));
+                blocks.add(new WorldBlock(x, y, GameRegistry.getBlock(id), host));
             }
             
             return blocks;

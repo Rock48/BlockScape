@@ -22,6 +22,10 @@ public class World
 		return blocks;
 	}
 	
+	public static void setWorld(ArrayList<WorldBlock> world){
+		blocks = world;
+	}
+	
 	/**
 	 * Adds a block to the world if a block doesnt exist at the given coords
 	 * @param block WorldBlock to add
