@@ -53,26 +53,45 @@ public class SaveData
     public static void addWorld(WorldSave world)
     {
         saves.add(world);
-        createWorldFile(saves.indexOf(world));
-        saveGame(world);
+        if(createWorldFile(saves.indexOf(world))){
+        	saveGame(world);
+        }
     }
     
-    private static void createWorldFile(int index)
+    private static boolean createWorldFile(int index)
     {
+    	boolean a,b;
+    	a = false;
+    	b = false;
+    
         try
         {
+        	
             if (!Files.exists(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName())))
                 Files.createDirectory(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName()));
-            if (!Files.exists(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + Saves.WORLD_FILE_NAME)))
+                
+            if (!Files.exists(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + Saves.WORLD_FILE_NAME))){
                 Files.createFile(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + Saves.WORLD_FILE_NAME));
-            if (!Files.exists(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + Saves.PLAYER_FILE_NAME)))
+                a = true;
+            }
+            if (!Files.exists(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + Saves.PLAYER_FILE_NAME))){
                 Files.createFile(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + Saves.PLAYER_FILE_NAME));
+                b = true;
+            }
+            PApplet.println(a);
+            PApplet.println(b);
+            
+            if(a && b){
+            	return true;
+            }else{
+            	return false;
+            }
         }
         catch (Exception e)
         {
             LogHelper.severe(MainReference.FILE_ERROR_MSG);
             e.printStackTrace();
-            return;
+            return false;
         }
         
     }

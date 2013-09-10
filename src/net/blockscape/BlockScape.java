@@ -173,7 +173,10 @@ public class BlockScape extends PApplet
     	    Player.right = false;
     	if (key=='l'){
     		try {
+    			//read data and set the respective things in-game
 				World.setWorld(SaveData.getWorldSaveData("testWorld", this));
+	            Player.setX(SaveData.getPlayerX("testWorld"));
+	            Player.setY(SaveData.getPlayerY("testWorld"));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
