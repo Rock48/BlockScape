@@ -53,9 +53,8 @@ public class SaveData
     public static void addWorld(WorldSave world)
     {
         saves.add(world);
-        if(createWorldFile(saves.indexOf(world))){
+        if(createWorldFile(saves.indexOf(world)))
         	saveGame(world);
-        }
     }
     
     private static boolean createWorldFile(int index)
@@ -74,6 +73,7 @@ public class SaveData
                 Files.createFile(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + saves.get(index).getName() + File.separator + Saves.WORLD_FILE_NAME));
                 a = true;
             }
+            
             if (!Files.exists(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + saves.get(index).getName() + File.separator + Saves.PLAYER_FILE_NAME)))
             {
                 Files.createFile(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + saves.get(index).getName() + File.separator + Saves.PLAYER_FILE_NAME));
@@ -108,7 +108,6 @@ public class SaveData
             prepareForWorldWrite(index);
             return;
         }
-
         
         LogHelper.severe("Could not find matching world to save!!");
     }

@@ -98,10 +98,10 @@ public class DrawingAndLogicHelper
         else
         	BlockScape.flyMode.setText("Fly Mode: Off");
         
-        if (BlockScape.isSaving)
+        if (BlockScape.isSaving && ((int) BlockScape.saveDisplayCounter / 20) % 2 == 0)
         {
             host.textAlign(PConstants.CENTER);
-            host.text("Saving. . .", host.width / 2, 10);
+            host.text("Saving. . .", host.width / 2, 40);
         }
     }
 	

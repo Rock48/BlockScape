@@ -31,6 +31,8 @@ public class BlockScape extends PApplet
 	
 	public static float distBetweenPlayerAndMouse; //The distance between the player and the user's mouse
 	
+	public static int saveDisplayCounter = 100;
+	
 	//Booleans
 	public static boolean canPlaceOrRemoveBlock;
 	public boolean ground;
@@ -112,6 +114,8 @@ public class BlockScape extends PApplet
 	    if (!isPaused)
 	    {
 	        isSaving = true;
+	        saveDisplayCounter = 100;
+	        
 	        background(100, 100, 255);
 	        DrawingAndLogicHelper.drawGame(this);
 	    }
@@ -123,7 +127,8 @@ public class BlockScape extends PApplet
 	        if (isSaving)
 	        {
 	            SaveData.saveGame(new WorldSave("testWorld", World.getWorld()));
-	            isSaving = false;
+	            if (--saveDisplayCounter < 0)
+	                isSaving = false;
 	        }
 	        
 	    }
