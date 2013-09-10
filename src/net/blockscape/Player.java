@@ -79,6 +79,11 @@ public class Player
 			    xvelocity += 0.15;
 		}
 		
+		if(yvelocity>7.5)yvelocity=7.5F;
+		if(yvelocity<-7.5)yvelocity=-7.5F;
+		
+		if(xvelocity>7.5)xvelocity=7.5F;
+		if(xvelocity<-7.5)xvelocity=-7.5F;
 		
 		boolean onGround = false;
 		PVector leftSideHigh,rightSideHigh,leftSideLow,rightSideLow,topSide,bottomSide,groundCheck;
