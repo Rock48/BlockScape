@@ -73,27 +73,34 @@ public class BlockScape extends PApplet
         
 	    LogHelper.init();
 	    SaveData.initDirectory();
-		
-	    World.init();
+	    IconHelper.init(this);
+	    Player.initPlayer(width/2, 0, this);
+	    GameRegistry.initialize();
+        Block.blockInit();
+        
+	    //World Stuff
+	    
+	    World.initBlankWorld();
 		SaveData.addWorld(new WorldSave("testWorld", World.getWorld()));
 		
-		IconHelper.init(this);
-		Player.initPlayer(width/2, 0, this);
+		//End World Stuff
+		
 		
 		size(1280,720);
 		
 		if(frame != null)
 		{
 			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-			URL icon = classLoader.getResource("data/block/grass.png");
+			URL icon = classLoader.getResource(MainReference.ICON_LOCATION);
 			frame.setTitle(MainReference.GAME_NAME);
 			frame.setIconImage(getToolkit().getImage(icon));
 		}
 		
-		GameRegistry.initialize();
-		Block.blockInit();
-		frameRate(60);
+		frameRate(MainReference.FRAME_RATE);
+		
+		//Another World-Gen Thing here
 		TerrainGenerationHelper.generateWorld(this);
+		
 		addMouseWheelListener(new MouseWheelListener() { public void mouseWheelMoved(MouseWheelEvent mwe) { mouseWheel(mwe.getWheelRotation()); }});
 	}
 	
@@ -171,14 +178,17 @@ public class BlockScape extends PApplet
     	    Player.left = false;
     	if (key=='d')
     	    Player.right = false;
-    	if (key=='l'){
-    		try {
+    	if (key=='l')
+    	{
+    		try
+    		{
     			//read data and set the respective things in-game
 				World.setWorld(SaveData.getWorldSaveData("testWorld", this));
 	            Player.setX(SaveData.getPlayerX("testWorld"));
 	            Player.setY(SaveData.getPlayerY("testWorld"));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
+			}
+    		catch (IOException e)
+			{
 				e.printStackTrace();
 			}
     	}

@@ -8,7 +8,7 @@ public class World
 {
 	private static ArrayList<WorldBlock> blocks;
 	
-	public static void init()
+	public static void initBlankWorld()
 	{
 		blocks = new ArrayList<WorldBlock>();
 	}

@@ -4,13 +4,16 @@ import net.blockscape.helper.IconHelper;
 import net.blockscape.registry.GameRegistry;
 import processing.core.PImage;
 
-public class Block {
+public class Block
+{
 
 	protected PImage texture;
 	public int blockID;
 	private String name;
 	private boolean doesPlayerCollide;
+	private boolean isBreakable;
 	
+	//Blocks
 	public static Block blockStone;
 	public static Block blockGrass;
 	public static Block blockDirt;
@@ -26,7 +29,8 @@ public class Block {
 	/**
 	 * Ininitalized all blocks
 	 */
-	public static void blockInit(){
+	public static void blockInit()
+	{
 		blockStone = new BlockStone(1).setName("Stone");
 		blockGrass = new BlockGrass(2).setName("Grass");
 		blockDirt = new BlockDirt(3).setName("Dirt");
@@ -40,10 +44,12 @@ public class Block {
 		
 		regInit();
 	}
+	
 	/**
 	 * adds blocks to block registry
 	 */
-	private static void regInit(){
+	private static void regInit()
+	{
 		GameRegistry.registerBlock(blockStone);
 		GameRegistry.registerBlock(blockGrass);
 		GameRegistry.registerBlock(blockDirt);
@@ -55,48 +61,55 @@ public class Block {
 		GameRegistry.registerBlock(oreDiamond);
 		GameRegistry.registerBlock(blockBlueThing);
 	}
-
 	
 	/**
 	 * Creates a new block with defualts. id req
 	 * @param id
 	 */
-	public Block(int id){
+	public Block(int id)
+	{
 		blockID = id;
 		name = "undefined";
 		texture = IconHelper.convertStringToBlockImage("default.png");
 		doesPlayerCollide = true;
+		isBreakable = true;
 	}
+	
 	/**
 	 * Returns the texture for the block
 	 * @return texture
 	 */
-	public PImage getTexture(){
+	public PImage getTexture()
+	{
 		return texture;
 	}
+	
 	/**
 	 * Returns the name of the block
 	 * @return name
 	 */
-	public String getName(){
+	public String getName()
+	{
 		return name;
 	}
+	
 	/**
 	 * Sets the name and returns the block
 	 * @param name
 	 * @return self
 	 */
-	public Block setName(String name){
+	public Block setName(String name)
+	{
 		this.name = name;
 		return this;
 	}
-
 
 	/**
 	 * Returns if the player collides with the block
 	 * @return the doesPlayerCollide
 	 */
-	public boolean getDoesPlayerCollide() {
+	public boolean getDoesPlayerCollide()
+	{
 		return doesPlayerCollide;
 	}
 
@@ -105,9 +118,35 @@ public class Block {
 	 * sets if the player will collide with this block. Defults to true.
 	 * @param doesPlayerCollide
 	 */
-	public Block setDoesPlayerCollide(boolean doesPlayerCollide) {
+	public Block setDoesPlayerCollide(boolean doesPlayerCollide)
+	{
 		this.doesPlayerCollide = doesPlayerCollide;
 		return this;
 	}
+	
+	/**
+	 * 
+	 * @return Whether or not the block can be broken by the player
+	 */
+	public boolean isBlockBreakable()
+	{
+	    return this.isBreakable;
+	}
+	
+	/**     
+	 * Sets the block to be unbreakable 
+	 */
+	public void setBlockUnbreakable()
+	{
+	    this.isBreakable = false;
+	}
+	
+	/**     
+     * Sets the block to be breakable (only needed if you want to make an unbreakable block breakable for some reason)
+     */
+    public void setBlockBreakable()
+    {
+        this.isBreakable = true;
+    }
 	
 }
