@@ -60,32 +60,33 @@ public class SaveData
     
     private static boolean createWorldFile(int index)
     {
-    	boolean a,b;
-    	a = false;
-    	b = false;
-    
+    	boolean a = false;
+    	boolean b = false;
+    	
         try
         {
         	
-            if (!Files.exists(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName())))
-                Files.createDirectory(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName()));
+            if (!Files.exists(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + saves.get(index).getName())))
+                Files.createDirectory(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + saves.get(index).getName()));
                 
-            if (!Files.exists(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + Saves.WORLD_FILE_NAME))){
-                Files.createFile(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + Saves.WORLD_FILE_NAME));
+            if (!Files.exists(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + saves.get(index).getName() + File.separator + Saves.WORLD_FILE_NAME)))
+            {
+                Files.createFile(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + saves.get(index).getName() + File.separator + Saves.WORLD_FILE_NAME));
                 a = true;
             }
-            if (!Files.exists(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + Saves.PLAYER_FILE_NAME))){
-                Files.createFile(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + Saves.PLAYER_FILE_NAME));
+            if (!Files.exists(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + saves.get(index).getName() + File.separator + Saves.PLAYER_FILE_NAME)))
+            {
+                Files.createFile(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + saves.get(index).getName() + File.separator + Saves.PLAYER_FILE_NAME));
                 b = true;
             }
-            PApplet.println(a);
-            PApplet.println(b);
             
-            if(a && b){
+            LogHelper.debug(a + " ");
+            LogHelper.debug(b + " ");
+            
+            if(a && b)
             	return true;
-            }else{
+            else
             	return false;
-            }
         }
         catch (Exception e)
         {
