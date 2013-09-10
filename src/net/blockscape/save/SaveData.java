@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import net.blockscape.Player;
-import net.blockscape.block.Block;
 import net.blockscape.helper.FileHelper;
 import net.blockscape.helper.LogHelper;
 import net.blockscape.lib.MainReference;
@@ -117,7 +116,7 @@ public class SaveData
         }
     }
     
-    public static void writeToWorldFile(File worldFile, ArrayList<WorldBlock> blocks) throws FileNotFoundException
+    public static void writeToWorldFile(File worldFile, ArrayList<WorldBlock> blocks) throws FileNotFoundException 
     {
         PrintWriter output = new PrintWriter(worldFile);
         
