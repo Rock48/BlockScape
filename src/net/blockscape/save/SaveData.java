@@ -20,21 +20,38 @@ import processing.core.PApplet;
 public class SaveData
 {
     private static ArrayList<WorldSave> saves;
+    private static PApplet host;
 
-    public static void initDirectory()
+    public static void initDirectory(PApplet host_)
     {
-        saves = new ArrayList<WorldSave>();
+        host = host_;
         
         try
         {
             if (!Files.exists(FileHelper.getPathFromString(FileHelper.getFileDirectoryString())))
-                Files.createDirectories(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves"));
+                Files.createDirectories(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER));
         }
         catch (Exception e)
         {
             LogHelper.severe(MainReference.FILE_ERROR_MSG);
             e.printStackTrace();
         }
+        
+        try
+        {
+            if (!Files.exists(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + Saves.WORLD_GENERAL_NAME)))
+                Files.createFile(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + Saves.WORLD_GENERAL_NAME));
+            else
+                saves = getListOfSavedWorlds();
+        }
+        catch (Exception e)
+        {
+            LogHelper.severe(MainReference.FILE_ERROR_MSG);
+            e.printStackTrace();
+        }
+        
+        if (saves == null)
+            saves = new ArrayList<WorldSave>();
     }
     
     private static int getWorldMatch(String name)
@@ -42,17 +59,16 @@ public class SaveData
         for (WorldSave save: saves)
         {
             if (save.getName() == name)
-            {
                 return saves.indexOf(save);
-            }
         }
         
         return -1;
     }
     
-    public static void addWorld(WorldSave world)
+    public static void addWorld(WorldSave world) throws FileNotFoundException
     {
         saves.add(world);
+        addWorldToGeneralWorldFile(world);
         if(createWorldFile(saves.indexOf(world)))
         	saveGame(world);
     }
@@ -116,13 +132,13 @@ public class SaveData
     {
         try
         {
-            File worldFile = new File(FileHelper.getAbsoluteFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + Saves.WORLD_FILE_NAME);
+            File worldFile = new File(FileHelper.getAbsoluteFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + saves.get(index).getName() + File.separator + Saves.WORLD_FILE_NAME);
             
             if (worldFile.exists())
             {
                 if (worldFile.delete())
                 {
-                    File newWorldFile = new File(Files.createFile(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + Saves.WORLD_FILE_NAME)).toString());
+                    File newWorldFile = new File(Files.createFile(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + saves.get(index).getName() + File.separator + Saves.WORLD_FILE_NAME)).toString());
                     writeToWorldFile(newWorldFile, saves.get(index).getBlocks());
                 }
             }
@@ -164,13 +180,13 @@ public class SaveData
     {
         try
         {
-            File playerFile = new File(FileHelper.getAbsoluteFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + Saves.PLAYER_FILE_NAME);
+            File playerFile = new File(FileHelper.getAbsoluteFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + saves.get(index).getName() + File.separator + Saves.PLAYER_FILE_NAME);
             
             if (playerFile.exists())
             {
                 if (playerFile.delete())
                 {
-                    File newPlayerFile = new File(Files.createFile(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + Saves.PLAYER_FILE_NAME)).toString());
+                    File newPlayerFile = new File(Files.createFile(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + saves.get(index).getName() + File.separator + Saves.PLAYER_FILE_NAME)).toString());
                     writeToPlayerFile(newPlayerFile);
                 }
             }
@@ -210,7 +226,7 @@ public class SaveData
         if (index == -1)
             return 0;
         
-        Scanner input = new Scanner(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + Saves.PLAYER_FILE_NAME));
+        Scanner input = new Scanner(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + saves.get(index).getName() + File.separator + Saves.PLAYER_FILE_NAME));
         
         try
         {
@@ -235,7 +251,7 @@ public class SaveData
         if (index == -1)
             return 0;
         
-        Scanner input = new Scanner(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + Saves.PLAYER_FILE_NAME));
+        Scanner input = new Scanner(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + saves.get(index).getName() + File.separator + Saves.PLAYER_FILE_NAME));
         
         try
         {
@@ -255,14 +271,14 @@ public class SaveData
         }
     }
     
-    public static ArrayList<WorldBlock> getWorldSaveData(String name, PApplet host) throws IOException
+    public static ArrayList<WorldBlock> getWorldSaveData(String name) throws IOException
     {
         int index = getWorldMatch(name);
         
         if (index == -1)
-            return null;
+            throw new IOException();
         
-        Scanner input = new Scanner(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + "saves" + File.separator + saves.get(index).getName() + File.separator + Saves.WORLD_FILE_NAME));
+        Scanner input = new Scanner(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + saves.get(index).getName() + File.separator + Saves.WORLD_FILE_NAME));
         
         ArrayList<WorldBlock> blocks = new ArrayList<WorldBlock>();
         
@@ -289,6 +305,55 @@ public class SaveData
         {
             input.close();
         }
+    }
+    
+    public static void addWorldToGeneralWorldFile(WorldSave world) throws FileNotFoundException
+    {
+        PrintWriter output = new PrintWriter(new File(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + Saves.WORLD_GENERAL_NAME));
+        
+        try
+        {
+            output.println(world.getName());
+        }
+        catch (Exception e)
+        {
+            LogHelper.severe(MainReference.FILE_ERROR_MSG);
+            e.printStackTrace();
+        }
+        finally
+        {
+            output.close();
+        }
+    }
+    
+    public static ArrayList<WorldSave> getListOfSavedWorlds() throws IOException
+    {
+        Scanner input = new Scanner(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + Saves.WORLD_GENERAL_NAME));
+        
+        ArrayList<WorldSave> saves_ = new ArrayList<WorldSave>();
+        
+        try
+        {
+            while (input.hasNext())
+            {
+                String name_ = input.next();
+                WorldSave savedWorld = new WorldSave(name_, new ArrayList<WorldBlock>());
+                saves_.add(savedWorld);
+            }
+        }
+        catch (Exception e)
+        {
+            LogHelper.severe(MainReference.FILE_ERROR_MSG);
+            e.printStackTrace();
+            return null;
+        }
+        finally
+        {
+            input.close();
+        }
+        
+        return null;
+        
     }
     
 }

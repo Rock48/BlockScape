@@ -8,6 +8,7 @@ package net.blockscape;
 
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 
@@ -60,7 +61,7 @@ public class BlockScape extends PApplet
 	    screenSelected = OptionsScreenEnum.noScreen; //TODO Main Screen
         
 	    LogHelper.init();
-	    SaveData.initDirectory();
+	    SaveData.initDirectory(this);
 	    FontRegistry.init(this);
 	    ButtonRegistry.init(this);
 	    IconHelper.init(this);
@@ -82,7 +83,15 @@ public class BlockScape extends PApplet
 		frameRate(MainReference.FRAME_RATE);
 		
 		//TODO Menu generation
-		generateNewWorld("testWorld2", this);
+		try
+        {
+            generateNewWorld("testWorld2", this);
+        }
+        catch (FileNotFoundException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 		
 		addMouseWheelListener(new MouseWheelListener() { public void mouseWheelMoved(MouseWheelEvent mwe) { mouseWheel(mwe.getWheelRotation()); }});
 	}
@@ -112,7 +121,11 @@ public class BlockScape extends PApplet
 	        
 	        if (--saveDisplayCounter < 0)
 	            isSaving = false;
-	        
+	    }
+	    else if (screenSelected == OptionsScreenEnum.mainScreen)
+	    {
+	        background(100, 100, 207);
+	        DrawingAndLogicHelper.drawMainMenu(this);
 	    }
 	}
 	
@@ -173,7 +186,7 @@ public class BlockScape extends PApplet
             Player.up = false;
         if (key == 's')
             Player.down = false;
-    	if (key=='l')
+    	/*if (key=='l')
     	{
     		try
     		{
@@ -186,7 +199,7 @@ public class BlockScape extends PApplet
 			{
 				e.printStackTrace();
 			}
-    	}
+    	}*/
 	}
 	
 	
@@ -227,9 +240,25 @@ public class BlockScape extends PApplet
         if (ButtonRegistry.flyMode.held)
             isFlyMode = !isFlyMode;
         if (ButtonRegistry.returnToGame.held)
-            screenSelected = OptionsScreenEnum.noScreen;
+            clearOptionsScreen();
         if (ButtonRegistry.exitGame.held)
             BlockScape.endgame();
+        if (ButtonRegistry.loadWorld.held)
+        {
+            try
+            {
+                World.setWorld(SaveData.getWorldSaveData("testWorld2"));
+                Player.setX(SaveData.getPlayerX("testWorld2"));
+                Player.setY(SaveData.getPlayerY("testWorld2"));
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+                return;
+            }
+            
+            clearOptionsScreen();
+        }
     }
 	
 	public static void setOptionsScreen(OptionsScreenEnum screenSelected_)
@@ -247,10 +276,10 @@ public class BlockScape extends PApplet
 	    System.exit(0);
 	}
 	
-	public static void generateNewWorld(String name, PApplet host)
+	public static void generateNewWorld(String name, PApplet host) throws FileNotFoundException
 	{
 	    World.initBlankWorld();
-        SaveData.addWorld(new WorldSave(name, World.getWorld()));
+        //SaveData.addWorld(new WorldSave(name, World.getWorld()));
         TerrainGenerationHelper.generateWorld(host);
 	}
 }

@@ -113,6 +113,7 @@ public class DrawingAndLogicHelper
      */
     public static void drawMainMenu(PApplet host)
     {
-        
+        ButtonRegistry.loadWorld.update();
+        ButtonRegistry.newWorld.update();
     }
 }
