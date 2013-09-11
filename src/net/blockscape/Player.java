@@ -139,7 +139,7 @@ public class Player
 			}
 		}
 		
-		if(onGround)
+		if(onGround || BlockScape.isFlyMode)
 			((BlockScape) host).ground = true;
 		else
 			((BlockScape) host).ground = false;
@@ -148,70 +148,80 @@ public class Player
 	/**
 	 * @return the x
 	 */
-	public static float getX() {
+	public static float getX()
+	{
 		return x;
 	}
 	
 	/**
 	 * @param x the x to set
 	 */
-	public static void setX(float x) {
+	public static void setX(float x)
+	{
 		Player.x = x;
 	}
 	
 	/**
 	 * @return the y
 	 */
-	public static float getY() {
+	public static float getY()
+	{
 		return y;
 	}
 	
 	/**
 	 * @param y the y to set
 	 */
-	public static void setY(float y) {
+	public static void setY(float y)
+	{
 		Player.y = y;
 	}
 	
 	/**
 	 * @return the yvelocity
 	 */
-	public static float getYvelocity() {
+	public static float getYvelocity()
+	{
 		return yvelocity;
 	}
 	
 	/**
 	 * @param yvelocity the yvelocity to set
 	 */
-	public static void setYvelocity(float yvelocity) {
+	public static void setYvelocity(float yvelocity)
+	{
 		Player.yvelocity = yvelocity;
 	}
 	
 	/**
 	 * @return the width
 	 */
-	public static float getWidth() {
+	public static float getWidth()
+	{
 		return width;
 	}
 	
 	/**
 	 * @param width the width to set
 	 */
-	public static void setWidth(float width) {
+	public static void setWidth(float width)
+	{
 		Player.width = width;
 	}
 	
 	/**
 	 * @return the height
 	 */
-	public static float getHeight() {
+	public static float getHeight()
+	{
 		return height;
 	}
 	
 	/**
 	 * @param height the height to set
 	 */
-	public static void setHeight(float height) {
+	public static void setHeight(float height)
+	{
 		Player.height = height;
 	}
 }

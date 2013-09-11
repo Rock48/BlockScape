@@ -14,6 +14,7 @@ import java.net.URL;
 
 import net.blockscape.block.Block;
 import net.blockscape.gui.Button;
+import net.blockscape.gui.OptionsScreenEnum;
 import net.blockscape.helper.*;
 import net.blockscape.lib.MainReference;
 import net.blockscape.registry.GameRegistry;
@@ -33,11 +34,13 @@ public class BlockScape extends PApplet
 	
 	public static int saveDisplayCounter = 100;
 	
+	public static OptionsScreenEnum screenSelected;
+	
 	//Booleans
 	public static boolean canPlaceOrRemoveBlock;
 	public boolean ground;
-	public static boolean isPaused;
-	public static boolean isStartMenu;
+	//public static boolean isPaused;
+	//public static boolean isStartMenu;
 	public static boolean isFlyMode;
 	public static boolean isSaving;
 	
@@ -71,7 +74,7 @@ public class BlockScape extends PApplet
 	    
 	    ground = false;
 	    isFlyMode = false;
-	    isStartMenu = true;
+	    screenSelected = OptionsScreenEnum.noScreen; //TODO Main Screen
 	    
 	    returnToGame = new Button(540, 360, 200, 70, "Return To Game", true, buttonFont, this);
 	    exitGame = new Button(540, 500, 200, 70, "Exit Game", true, buttonFont, this);
@@ -108,7 +111,7 @@ public class BlockScape extends PApplet
 	 */
 	public void draw()
 	{
-	    if (!isPaused)
+	    if (screenSelected == OptionsScreenEnum.noScreen)
 	    {
 	        isSaving = true;
 	        saveDisplayCounter = 100;
@@ -116,7 +119,7 @@ public class BlockScape extends PApplet
 	        background(100, 100, 255);
 	        DrawingAndLogicHelper.drawGame(this);
 	    }
-	    else
+	    else if (screenSelected == OptionsScreenEnum.mainPause)
 	    {
 	        background(100, 100, 175);
 	        DrawingAndLogicHelper.drawPauseMenu(this);
@@ -136,7 +139,7 @@ public class BlockScape extends PApplet
 	 */
 	public void keyPressed()
 	{
-	    if (isPaused)
+	    if (screenSelected != OptionsScreenEnum.noScreen)
 	    {
 	        key = 0;
 	        return;
@@ -171,7 +174,7 @@ public class BlockScape extends PApplet
     	if (key == ESC)
     	{
     	    key = 0;
-    	    pauseGame();
+    	    screenSelected = OptionsScreenEnum.mainPause;
     	}
 	}
 	
@@ -242,19 +245,19 @@ public class BlockScape extends PApplet
         if (BlockScape.flyMode.held)
             isFlyMode = !isFlyMode;
         if (BlockScape.returnToGame.held)
-            BlockScape.unpauseGame();
+            screenSelected = OptionsScreenEnum.noScreen;
         if (BlockScape.exitGame.held)
             BlockScape.endgame();
     }
 	
-	public static void pauseGame()
+	public static void setOptionsScreen(OptionsScreenEnum screenSelected_)
 	{
-	    isPaused = true;
+	    screenSelected = screenSelected_;
 	}
 	
-	public static void unpauseGame()
+	public static void clearOptionsScreen()
 	{
-	    isPaused = false;
+	    screenSelected = OptionsScreenEnum.noScreen;
 	}
 	
 	public static void endgame()
