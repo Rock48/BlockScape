@@ -37,12 +37,14 @@ public class BlockScape extends PApplet
 	public static boolean canPlaceOrRemoveBlock;
 	public boolean ground;
 	public static boolean isPaused;
+	public static boolean isStartMenu;
 	public static boolean isFlyMode;
 	public static boolean isSaving;
 	
 	//Fonts
 	public static PFont buttonFont;
 	public static PFont inGameFont;
+	public static PFont titleFont;
 	
 	//Buttons
 	public static Button returnToGame;
@@ -65,9 +67,11 @@ public class BlockScape extends PApplet
 	{
 	    buttonFont = createFont("Arial", 24, true);
 	    inGameFont = createFont("Arial", 14, true);
+	    titleFont = loadFont("AtomicAge-48.vlw");
 	    
 	    ground = false;
 	    isFlyMode = false;
+	    isStartMenu = true;
 	    
 	    returnToGame = new Button(540, 360, 200, 70, "Return To Game", true, buttonFont, this);
 	    exitGame = new Button(540, 500, 200, 70, "Exit Game", true, buttonFont, this);
@@ -78,16 +82,9 @@ public class BlockScape extends PApplet
 	    IconHelper.init(this);
 	    Player.initPlayer(width/2, 0, this);
 	    GameRegistry.initialize();
-        Block.blockInit();
+        Block.blockInit();	
+		
         
-	    //World Stuff
-	    
-	    World.initBlankWorld();
-		SaveData.addWorld(new WorldSave("testWorld", World.getWorld()));
-		
-		//End World Stuff
-		
-		
 		size(1280,720);
 		
 		if(frame != null)
@@ -100,8 +97,8 @@ public class BlockScape extends PApplet
 		
 		frameRate(MainReference.FRAME_RATE);
 		
-		//Another World-Gen Thing here
-		TerrainGenerationHelper.generateWorld(this);
+		//TODO Menu generation
+		generateNewWorld("testWorld2", this);
 		
 		addMouseWheelListener(new MouseWheelListener() { public void mouseWheelMoved(MouseWheelEvent mwe) { mouseWheel(mwe.getWheelRotation()); }});
 	}
@@ -126,7 +123,7 @@ public class BlockScape extends PApplet
 	        
 	        if (isSaving)
 	        {
-	            SaveData.saveGame(new WorldSave("testWorld", World.getWorld()));
+	            SaveData.saveGame(new WorldSave("testWorld2", World.getWorld()));
 	            if (--saveDisplayCounter < 0)
 	                isSaving = false;
 	        }
@@ -151,6 +148,10 @@ public class BlockScape extends PApplet
     	    Player.left = true;
     	if (key == 'd')
     	    Player.right = true;
+    	if (key == 'w' && isFlyMode)
+            Player.up = true;
+    	if (key == 's' && isFlyMode)
+            Player.down = true;
     	if (key == ENTER)
     	{
     		Player.setX(mouseX);
@@ -183,14 +184,18 @@ public class BlockScape extends PApplet
     	    Player.left = false;
     	if (key=='d')
     	    Player.right = false;
+    	if (key == 'w')
+            Player.up = false;
+        if (key == 's')
+            Player.down = false;
     	if (key=='l')
     	{
     		try
     		{
     			//read data and set the respective things in-game
-				World.setWorld(SaveData.getWorldSaveData("testWorld", this));
-	            Player.setX(SaveData.getPlayerX("testWorld"));
-	            Player.setY(SaveData.getPlayerY("testWorld"));
+				World.setWorld(SaveData.getWorldSaveData("testWorld2", this));
+	            Player.setX(SaveData.getPlayerX("testWorld2"));
+	            Player.setY(SaveData.getPlayerY("testWorld2"));
 			}
     		catch (IOException e)
 			{
@@ -232,6 +237,16 @@ public class BlockScape extends PApplet
 	    selectedBlock = GameRegistry.getBlock(selectedBlockID);
 	}
 	
+	public void mouseReleased()
+    {
+        if (BlockScape.flyMode.held)
+            isFlyMode = !isFlyMode;
+        if (BlockScape.returnToGame.held)
+            BlockScape.unpauseGame();
+        if (BlockScape.exitGame.held)
+            BlockScape.endgame();
+    }
+	
 	public static void pauseGame()
 	{
 	    isPaused = true;
@@ -247,13 +262,10 @@ public class BlockScape extends PApplet
 	    System.exit(0);
 	}
 	
-	public void mouseReleased()
+	public static void generateNewWorld(String name, PApplet host)
 	{
-	    if (BlockScape.flyMode.held)
-	        isFlyMode = !isFlyMode;
-        if (BlockScape.returnToGame.held)
-            BlockScape.unpauseGame();
-        if (BlockScape.exitGame.held)
-            BlockScape.endgame();
+	    World.initBlankWorld();
+        SaveData.addWorld(new WorldSave(name, World.getWorld()));
+        TerrainGenerationHelper.generateWorld(host);
 	}
 }

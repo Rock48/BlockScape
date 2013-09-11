@@ -5,36 +5,45 @@ import net.blockscape.block.Block;
 import net.blockscape.world.World;
 import net.blockscape.world.WorldBlock;
 
-public class TerrainGenerationHelper {
+public class TerrainGenerationHelper
+{
 
 	/**
 	 * generates the world
 	 * @param host the game window
 	 */
-	public static void generateWorld(PApplet host){
-		float h=host.random(0.01F, 0.09F);
+	public static void generateWorld(PApplet host)
+	{
+		float h  =host.random(0.01F, 0.09F);
 		int ymh;
 		float n;
 		float j = host.random(0,5000);
-		for (int x = 0; x < host.width/16+1; x++) {
+		for (int x = 0; x < host.width/16+1; x++)
+		{
 			j+=h;
 			n = host.noise(j);
-			ymh = (int)(PApplet.map(n, 0, 1, 0, host.height/16)+0.5);
+			ymh = (int) (PApplet.map(n, 0, 1, 0, host.height / 16) + 0.5);
 			float tree = host.random(0,100);
 			
 			    
-			for (int y = 0; y < host.height/16; y++) {
+			for (int y = 0; y < host.height/16; y++)
+			{
 				float oreGenChances = host.random(0,100);
-				if (y==ymh) {
+				
+				if (y==ymh)
 					World.setBlock(new WorldBlock(x, y, Block.blockGrass, host));
-				}
-				else if (y<ymh && y>ymh-4) {
+				else if (y<ymh && y>ymh-4)
 					World.setBlock(new WorldBlock(x, y, Block.blockDirt, host));
-				}else if (y<=ymh-4){
-					if(oreGenChances<=4)World.setBlock(new WorldBlock(x, y, Block.oreCoal, host));
-					else if(oreGenChances<=6 && y<=16)World.setBlock(new WorldBlock(x, y, Block.oreIron, host));
-					else if(oreGenChances<=6.5 && y<=8)World.setBlock(new WorldBlock(x, y, Block.oreDiamond, host));
-					else World.setBlock(new WorldBlock(x, y, Block.blockStone, host));
+				else if (y<=ymh-4)
+				{
+					if(oreGenChances <= 4)
+					    World.setBlock(new WorldBlock(x, y, Block.oreCoal, host));
+					else if(oreGenChances <= 6 && y <= 16)
+					    World.setBlock(new WorldBlock(x, y, Block.oreIron, host));
+					else if(oreGenChances <= 6.5 && y <= 8)
+					    World.setBlock(new WorldBlock(x, y, Block.oreDiamond, host));
+					else
+					    World.setBlock(new WorldBlock(x, y, Block.blockStone, host));
 				}
 			}
 			
@@ -42,6 +51,7 @@ public class TerrainGenerationHelper {
 				generateTree(x,(int)(ymh+1),host);
 		}
 	}
+	
 	/**
 	 * generates a tree
 	 * @param x of base

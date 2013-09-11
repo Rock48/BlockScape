@@ -12,7 +12,7 @@ public class Player
 	
     static PImage texture;
 	private static float x, y, width, height, xvelocity, yvelocity;
-	public static boolean right, left;
+	public static boolean right, left, up, down;
 	static PApplet host;
 	
 	/**

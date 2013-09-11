@@ -1,9 +1,12 @@
 package net.blockscape.helper;
 
+import java.io.File;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 
-public class IconHelper {
+public class IconHelper
+{
 
 	private static PApplet host;
 	
@@ -11,7 +14,8 @@ public class IconHelper {
 	 * initializes the iconhelper
 	 * @param host_
 	 */
-	public static void init(PApplet host_){
+	public static void init(PApplet host_)
+	{
 		host = host_;
 	}
 	
@@ -20,8 +24,9 @@ public class IconHelper {
 	 * @param imageFile name of file
 	 * @return the image
 	 */
-	public static PImage convertStringToBlockImage(String imageFile){
-		return host.loadImage("block\\" + imageFile);
+	public static PImage convertStringToBlockImage(String imageFile)
+	{
+		return host.loadImage("block" + File.separator + imageFile);
 	}
 	
 	/**
@@ -29,8 +34,9 @@ public class IconHelper {
      * @param imageFile name of file
      * @return the image
      */
-    public static PImage convertStringToEntityImage(String imageFile){
-        return host.loadImage("entity\\" + imageFile);
+    public static PImage convertStringToEntityImage(String imageFile)
+    {
+        return host.loadImage("entity" + File.separator + imageFile);
     }
 	
 }

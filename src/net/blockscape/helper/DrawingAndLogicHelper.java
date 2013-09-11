@@ -104,5 +104,4 @@ public class DrawingAndLogicHelper
             host.text("Saving. . .", host.width / 2, 40);
         }
     }
-	
 }
