@@ -4,6 +4,8 @@ import net.blockscape.BlockScape;
 import net.blockscape.Player;
 import net.blockscape.block.Block;
 import net.blockscape.lib.MainReference;
+import net.blockscape.registry.ButtonRegistry;
+import net.blockscape.registry.FontRegistry;
 import net.blockscape.world.World;
 import net.blockscape.world.WorldBlock;
 
@@ -20,7 +22,7 @@ public class DrawingAndLogicHelper
 	 */
 	public static void drawGame(PApplet host)
 	{
-		host.textFont(BlockScape.inGameFont);
+		host.textFont(FontRegistry.inGameFont);
 		host.textAlign(PApplet.LEFT);
 		
 		for(WorldBlock b: World.getWorld())
@@ -89,19 +91,28 @@ public class DrawingAndLogicHelper
         Player.draw();
         
         
-        BlockScape.returnToGame.update();
-        BlockScape.exitGame.update();
-        BlockScape.flyMode.update();
+        ButtonRegistry.returnToGame.update();
+        ButtonRegistry.exitGame.update();
+        ButtonRegistry.flyMode.update();
         
         if (BlockScape.isFlyMode)
-            BlockScape.flyMode.setText("Fly Mode: On");
+            ButtonRegistry.flyMode.setText("Fly Mode: On");
         else
-        	BlockScape.flyMode.setText("Fly Mode: Off");
+            ButtonRegistry.flyMode.setText("Fly Mode: Off");
         
         if (BlockScape.isSaving && ((int) BlockScape.saveDisplayCounter / 20) % 2 == 0)
         {
             host.textAlign(PConstants.CENTER);
             host.text("Saving. . .", host.width / 2, 40);
         }
+    }
+    
+    /**
+     * Called every time the game loops when paused
+     * @param host the game window
+     */
+    public static void drawMainMenu(PApplet host)
+    {
+        
     }
 }

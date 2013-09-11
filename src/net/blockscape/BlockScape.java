@@ -1,9 +1,8 @@
 /*
  * BlockScape
  * Written and Developed by Rock
- * Help from Darth
+ * Lots of Help from Darth
  */
-
 
 package net.blockscape;
 
@@ -13,10 +12,11 @@ import java.io.IOException;
 import java.net.URL;
 
 import net.blockscape.block.Block;
-import net.blockscape.gui.Button;
 import net.blockscape.gui.OptionsScreenEnum;
 import net.blockscape.helper.*;
 import net.blockscape.lib.MainReference;
+import net.blockscape.registry.ButtonRegistry;
+import net.blockscape.registry.FontRegistry;
 import net.blockscape.registry.GameRegistry;
 import net.blockscape.save.SaveData;
 import net.blockscape.save.WorldSave;
@@ -24,7 +24,6 @@ import net.blockscape.world.World;
 import net.blockscape.world.WorldBlock;
 
 import processing.core.PApplet;
-import processing.core.PFont;
 
 public class BlockScape extends PApplet
 {
@@ -39,21 +38,9 @@ public class BlockScape extends PApplet
 	//Booleans
 	public static boolean canPlaceOrRemoveBlock;
 	public boolean ground;
-	//public static boolean isPaused;
-	//public static boolean isStartMenu;
 	public static boolean isFlyMode;
 	public static boolean isSaving;
-	
-	//Fonts
-	public static PFont buttonFont;
-	public static PFont inGameFont;
-	public static PFont titleFont;
-	
-	//Buttons
-	public static Button returnToGame;
-	public static Button exitGame;
-	public static Button flyMode;
-	
+
 	
 	/**
      * @param args
@@ -68,20 +55,14 @@ public class BlockScape extends PApplet
 	 */
 	public void setup()
 	{
-	    buttonFont = createFont("Arial", 24, true);
-	    inGameFont = createFont("Arial", 14, true);
-	    titleFont = loadFont("AtomicAge-48.vlw");
-	    
 	    ground = false;
 	    isFlyMode = false;
 	    screenSelected = OptionsScreenEnum.noScreen; //TODO Main Screen
-	    
-	    returnToGame = new Button(540, 360, 200, 70, "Return To Game", true, buttonFont, this);
-	    exitGame = new Button(540, 500, 200, 70, "Exit Game", true, buttonFont, this);
-	    flyMode = new Button(540, 220, 200, 70, "Fly Mode: Off", true, buttonFont, this);
         
 	    LogHelper.init();
 	    SaveData.initDirectory();
+	    FontRegistry.init(this);
+	    ButtonRegistry.init(this);
 	    IconHelper.init(this);
 	    Player.initPlayer(width/2, 0, this);
 	    GameRegistry.initialize();
@@ -243,11 +224,11 @@ public class BlockScape extends PApplet
 	
 	public void mouseReleased()
     {
-        if (BlockScape.flyMode.held)
+        if (ButtonRegistry.flyMode.held)
             isFlyMode = !isFlyMode;
-        if (BlockScape.returnToGame.held)
+        if (ButtonRegistry.returnToGame.held)
             screenSelected = OptionsScreenEnum.noScreen;
-        if (BlockScape.exitGame.held)
+        if (ButtonRegistry.exitGame.held)
             BlockScape.endgame();
     }
 	
