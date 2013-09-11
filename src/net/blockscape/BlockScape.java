@@ -85,7 +85,7 @@ public class BlockScape extends PApplet
 	    IconHelper.init(this);
 	    Player.initPlayer(width/2, 0, this);
 	    GameRegistry.initialize();
-        Block.blockInit();	
+        Block.blockInit();
 		
         
 		size(1280,720);
@@ -124,12 +124,13 @@ public class BlockScape extends PApplet
 	        background(100, 100, 175);
 	        DrawingAndLogicHelper.drawPauseMenu(this);
 	        
-	        if (isSaving)
+	        if (saveDisplayCounter == 100)
 	        {
 	            SaveData.saveGame(new WorldSave("testWorld2", World.getWorld()));
-	            if (--saveDisplayCounter < 0)
-	                isSaving = false;
 	        }
+	        
+	        if (--saveDisplayCounter < 0)
+	            isSaving = false;
 	        
 	    }
 	}
