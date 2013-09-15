@@ -42,6 +42,8 @@ public class BlockScape extends PApplet
 	public static boolean isFlyMode;
 	public static boolean isSaving;
 
+	//TODO VERRY TEMP WORLD NAME
+	public static String worldName = "testWorld";
 	
 	/**
      * @param args
@@ -105,7 +107,7 @@ public class BlockScape extends PApplet
 	        
 	        if (saveDisplayCounter == 100)
 	        {
-	            SaveData.saveGame(new WorldSave("testWorld2", World.getWorld()));
+	            SaveData.saveGame(new WorldSave(worldName, World.getWorld()));
 	        }
 	        
 	        if (--saveDisplayCounter < 0)
@@ -224,9 +226,9 @@ public class BlockScape extends PApplet
             
             try
             {
-                World.setWorld(SaveData.getWorldSaveData("testWorld2"));
-                Player.setX(SaveData.getPlayerX("testWorld2"));
-                Player.setY(SaveData.getPlayerY("testWorld2"));
+                World.setWorld(SaveData.getWorldSaveData(worldName));
+                Player.setX(SaveData.getPlayerX(worldName));
+                Player.setY(SaveData.getPlayerY(worldName));
             }
             catch (IOException e)
             {
@@ -235,9 +237,10 @@ public class BlockScape extends PApplet
             }
             finally
             {
-                clearOptionsScreen();
                 ButtonRegistry.loadWorld.update();
             }
+            
+            clearOptionsScreen();
             
         }
     }

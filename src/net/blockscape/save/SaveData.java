@@ -222,6 +222,9 @@ public class SaveData
         if (index == -1)
             return 0;
         
+        if (!Files.exists(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + saves.get(index).getName() + File.separator + Saves.PLAYER_FILE_NAME)))
+            createWorldFile(index);
+        
         Scanner input = new Scanner(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + saves.get(index).getName() + File.separator + Saves.PLAYER_FILE_NAME));
         
         try
@@ -246,6 +249,9 @@ public class SaveData
             
         if (index == -1)
             return 0;
+        
+        if (!Files.exists(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + saves.get(index).getName() + File.separator + Saves.PLAYER_FILE_NAME)))
+            createWorldFile(index);
         
         Scanner input = new Scanner(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + saves.get(index).getName() + File.separator + Saves.PLAYER_FILE_NAME));
         
@@ -273,6 +279,9 @@ public class SaveData
         
         if (index == -1)
             throw new IOException();
+        
+        if (!Files.exists(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + saves.get(index).getName() + File.separator + Saves.WORLD_FILE_NAME)))
+            createWorldFile(index);
         
         Scanner input = new Scanner(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + saves.get(index).getName() + File.separator + Saves.WORLD_FILE_NAME));
         
