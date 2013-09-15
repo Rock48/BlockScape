@@ -25,40 +25,37 @@ public class SaveData
     public static void initDirectory(PApplet host_)
     {
         host = host_;
+        saves = new ArrayList<WorldSave>();
         
         try
         {
             if (!Files.exists(FileHelper.getPathFromString(FileHelper.getFileDirectoryString())))
                 Files.createDirectories(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER));
-        }
-        catch (Exception e)
-        {
-            LogHelper.severe(MainReference.FILE_ERROR_MSG);
-            e.printStackTrace();
-        }
-        
-        try
-        {
-            if (!Files.exists(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + Saves.WORLD_GENERAL_NAME)))
-                Files.createFile(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + Saves.WORLD_GENERAL_NAME));
             else
-                saves = getListOfSavedWorlds();
+            {
+                File folder = new File(FileHelper.getAbsoluteFileDirectoryString() + Saves.WORLD_SAVES_FOLDER);
+                File[] saveFolders = folder.listFiles();
+                
+                for (File f: saveFolders)
+                {
+                    if (f.isDirectory())
+                        saves.add(new WorldSave(f.getName()));
+                }
+            }
         }
         catch (Exception e)
         {
             LogHelper.severe(MainReference.FILE_ERROR_MSG);
             e.printStackTrace();
         }
-        
-        if (saves == null)
-            saves = new ArrayList<WorldSave>();
     }
     
     private static int getWorldMatch(String name)
     {
         for (WorldSave save: saves)
         {
-            if (save.getName() == name)
+            LogHelper.debug(save.getName() + " " + name);
+            if (save.getName().equals(name))
                 return saves.indexOf(save);
         }
         
@@ -68,7 +65,6 @@ public class SaveData
     public static void addWorld(WorldSave world) throws FileNotFoundException
     {
         saves.add(world);
-        addWorldToGeneralWorldFile(world);
         if(createWorldFile(saves.indexOf(world)))
         	saveGame(world);
     }
@@ -306,54 +302,4 @@ public class SaveData
             input.close();
         }
     }
-    
-    public static void addWorldToGeneralWorldFile(WorldSave world) throws FileNotFoundException
-    {
-        PrintWriter output = new PrintWriter(new File(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + Saves.WORLD_GENERAL_NAME));
-        
-        try
-        {
-            output.println(world.getName());
-        }
-        catch (Exception e)
-        {
-            LogHelper.severe(MainReference.FILE_ERROR_MSG);
-            e.printStackTrace();
-        }
-        finally
-        {
-            output.close();
-        }
-    }
-    
-    public static ArrayList<WorldSave> getListOfSavedWorlds() throws IOException
-    {
-        Scanner input = new Scanner(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + Saves.WORLD_GENERAL_NAME));
-        
-        ArrayList<WorldSave> saves_ = new ArrayList<WorldSave>();
-        
-        try
-        {
-            while (input.hasNext())
-            {
-                String name_ = input.next();
-                WorldSave savedWorld = new WorldSave(name_, new ArrayList<WorldBlock>());
-                saves_.add(savedWorld);
-            }
-        }
-        catch (Exception e)
-        {
-            LogHelper.severe(MainReference.FILE_ERROR_MSG);
-            e.printStackTrace();
-            return null;
-        }
-        finally
-        {
-            input.close();
-        }
-        
-        return null;
-        
-    }
-    
 }

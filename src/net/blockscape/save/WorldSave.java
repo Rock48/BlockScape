@@ -15,6 +15,12 @@ public class WorldSave
         this.blocks = blocks_;
     }
     
+    public WorldSave(String dispName_)
+    {
+        this.dispName = dispName_;
+        blocks = new ArrayList<WorldBlock>();
+    }
+    
     public String getName()
     {
         return dispName;

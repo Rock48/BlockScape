@@ -58,7 +58,7 @@ public class BlockScape extends PApplet
 	{
 	    ground = false;
 	    isFlyMode = false;
-	    screenSelected = OptionsScreenEnum.noScreen; //TODO Main Screen
+	    screenSelected = OptionsScreenEnum.mainScreen;
         
 	    LogHelper.init();
 	    SaveData.initDirectory(this);
@@ -81,17 +81,6 @@ public class BlockScape extends PApplet
 		}
 		
 		frameRate(MainReference.FRAME_RATE);
-		
-		//TODO Menu generation
-		try
-        {
-            generateNewWorld("testWorld2", this);
-        }
-        catch (FileNotFoundException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
 		
 		addMouseWheelListener(new MouseWheelListener() { public void mouseWheelMoved(MouseWheelEvent mwe) { mouseWheel(mwe.getWheelRotation()); }});
 	}
@@ -186,20 +175,6 @@ public class BlockScape extends PApplet
             Player.up = false;
         if (key == 's')
             Player.down = false;
-    	/*if (key=='l')
-    	{
-    		try
-    		{
-    			//read data and set the respective things in-game
-				World.setWorld(SaveData.getWorldSaveData("testWorld2", this));
-	            Player.setX(SaveData.getPlayerX("testWorld2"));
-	            Player.setY(SaveData.getPlayerY("testWorld2"));
-			}
-    		catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-    	}*/
 	}
 	
 	
@@ -245,6 +220,8 @@ public class BlockScape extends PApplet
             BlockScape.endgame();
         if (ButtonRegistry.loadWorld.held)
         {
+            LogHelper.info("BUTTON PRESSED");
+            
             try
             {
                 World.setWorld(SaveData.getWorldSaveData("testWorld2"));
@@ -256,8 +233,11 @@ public class BlockScape extends PApplet
                 e.printStackTrace();
                 return;
             }
+            finally
+            {
+                clearOptionsScreen();
+            }
             
-            clearOptionsScreen();
         }
     }
 	
@@ -279,7 +259,7 @@ public class BlockScape extends PApplet
 	public static void generateNewWorld(String name, PApplet host) throws FileNotFoundException
 	{
 	    World.initBlankWorld();
-        //SaveData.addWorld(new WorldSave(name, World.getWorld()));
+        SaveData.addWorld(new WorldSave(name, World.getWorld()));
         TerrainGenerationHelper.generateWorld(host);
 	}
 }
