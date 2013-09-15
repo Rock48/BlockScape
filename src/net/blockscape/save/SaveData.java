@@ -36,6 +36,9 @@ public class SaveData
                 File folder = new File(FileHelper.getAbsoluteFileDirectoryString() + Saves.WORLD_SAVES_FOLDER);
                 File[] saveFolders = folder.listFiles();
                 
+                if (saveFolders == null)
+                    return;
+                
                 for (File f: saveFolders)
                 {
                     if (f.isDirectory())
