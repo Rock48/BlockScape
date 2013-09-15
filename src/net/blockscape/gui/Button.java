@@ -7,27 +7,19 @@ import processing.core.PFont;
 public class Button
 {
     PApplet host;
+    
     float x, y, w, h;
-    String text;
-    int r1,
-        g1,
-        b1,
-        
-        r2,
-        g2,
-        b2,
-        
-        rt,
-        gt,
-        bt;
+    int r1, g1, b1, r2, g2, b2, rt, gt, bt;
     
     boolean border, mOvr;
-            
+    
     public boolean held;
     
+    String text;
     PFont f;
     
-    public Button(float x, float y, float w, float h, String text, boolean border, PFont textFont, PApplet host){
+    public Button(float x, float y, float w, float h, String text, boolean border, PFont textFont, PApplet host)
+    {
       this.x = x;
       this.y = y;
       this.w = w;
@@ -53,7 +45,8 @@ public class Button
       bt = 0;
     }
     
-    public void update(){
+    public void update()
+    {
       host.pushMatrix();
       
       host.translate(x,y);
@@ -73,32 +66,37 @@ public class Button
       
       if(mOvr)
       {
-        if(host.mousePressed)
-            held = true; 
+          if(host.mousePressed)
+              held = true; 
       }
       
       if(!host.mousePressed)
           held = false;
     }
     
-    public void setOffColor(int r, int g, int b){
+    public void setOffColor(int r, int g, int b)
+    {
       r1 = r;
       g1 = g;
       b1 = b;
     }
     
-    public void setOnColor(int r, int g, int b){
+    public void setOnColor(int r, int g, int b)
+    {
       r2 = r;
       g2 = g;
       b2 = b;
     }
     
-    public void setTextColor(int r, int g, int b){
+    public void setTextColor(int r, int g, int b)
+    {
       rt = r;
       gt = g;
       bt = b;
     }
-    public void setText(String text){
+    
+    public void setText(String text)
+    {
       this.text = text;
     }
   }
