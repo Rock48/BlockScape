@@ -236,6 +236,7 @@ public class BlockScape extends PApplet
             finally
             {
                 clearOptionsScreen();
+                ButtonRegistry.loadWorld.update();
             }
             
         }
