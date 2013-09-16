@@ -6,6 +6,7 @@ import net.blockscape.block.Block;
 import net.blockscape.lib.MainReference;
 import net.blockscape.registry.ButtonRegistry;
 import net.blockscape.registry.FontRegistry;
+import net.blockscape.registry.TextBoxRegistry;
 import net.blockscape.world.World;
 import net.blockscape.world.WorldBlock;
 
@@ -115,5 +116,6 @@ public class DrawingAndLogicHelper
     {
         ButtonRegistry.loadWorld.update();
         ButtonRegistry.newWorld.update();
+        TextBoxRegistry.test.update();
     }
 }

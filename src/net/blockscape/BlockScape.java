@@ -17,7 +17,6 @@ import net.blockscape.gui.OptionsScreenEnum;
 import net.blockscape.helper.*;
 import net.blockscape.lib.MainReference;
 import net.blockscape.registry.ButtonRegistry;
-import net.blockscape.registry.FontRegistry;
 import net.blockscape.registry.GameRegistry;
 import net.blockscape.registry.RegistryRegistry;
 import net.blockscape.save.SaveData;
@@ -67,11 +66,10 @@ public class BlockScape extends PApplet
 	    SaveData.initDirectory(this);
 	    RegistryRegistry.init(this);
 	    IconHelper.init(this);
-	    Player.initPlayer(width/2, 0, this);
-	    GameRegistry.initialize();
+	    Player.initPlayer(width / 2, 0, this);
         Block.blockInit();
-		
         
+        //Frame Stuffs
 		size(1280,720);
 		
 		if(frame != null)

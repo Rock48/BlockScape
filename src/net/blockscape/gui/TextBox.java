@@ -38,9 +38,11 @@ public class TextBox
         else
             host.noStroke();
         
+        host.fill(200, 200, 200);
         host.rect(0, 0, w, h);
         host.textFont(f);
         host.textAlign(PConstants.TOP);
+        host.fill(0, 0, 0);
         host.text(titleText, w  / 2, h / 2 + f.getSize() / 3);
         
         
