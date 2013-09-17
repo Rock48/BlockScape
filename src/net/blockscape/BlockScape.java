@@ -15,10 +15,12 @@ import java.net.URL;
 import net.blockscape.block.Block;
 import net.blockscape.gui.OptionsScreenEnum;
 import net.blockscape.helper.*;
+import net.blockscape.lib.Hardware;
 import net.blockscape.lib.MainReference;
 import net.blockscape.registry.ButtonRegistry;
 import net.blockscape.registry.GameRegistry;
 import net.blockscape.registry.RegistryRegistry;
+import net.blockscape.registry.TextBoxRegistry;
 import net.blockscape.save.SaveData;
 import net.blockscape.save.WorldSave;
 import net.blockscape.world.World;
@@ -33,7 +35,8 @@ public class BlockScape extends PApplet
 	public static float distBetweenPlayerAndMouse; //The distance between the player and the user's mouse
 	
 	public static int saveDisplayCounter = 100;
-	
+	public static int selectedBlockID = MainReference.DEFAULT_BLOCK_ID;
+	public static Block selectedBlock;
 	public static OptionsScreenEnum screenSelected;
 	
 	//Booleans
@@ -43,7 +46,7 @@ public class BlockScape extends PApplet
 	public static boolean isSaving;
 
 	//TODO VERRY TEMP WORLD NAME
-	public static String worldName = "testWorld";
+	public static String worldName = "hello";
 	
 	/**
      * @param args
@@ -68,6 +71,8 @@ public class BlockScape extends PApplet
 	    IconHelper.init(this);
 	    Player.initPlayer(width / 2, 0, this);
         Block.blockInit();
+        
+        selectedBlock = GameRegistry.getBlock(selectedBlockID);
         
         //Frame Stuffs
 		size(1280,720);
@@ -104,9 +109,7 @@ public class BlockScape extends PApplet
 	        DrawingAndLogicHelper.drawPauseMenu(this);
 	        
 	        if (saveDisplayCounter == 100)
-	        {
 	            SaveData.saveGame(new WorldSave(worldName, World.getWorld()));
-	        }
 	        
 	        if (--saveDisplayCounter < 0)
 	            isSaving = false;
@@ -116,6 +119,11 @@ public class BlockScape extends PApplet
 	        background(100, 100, 207);
 	        DrawingAndLogicHelper.drawMainMenu(this);
 	    }
+	    else if (screenSelected == OptionsScreenEnum.worldMaker)
+	    {
+	        background(100, 100, 207);
+            DrawingAndLogicHelper.drawWorldCreateMenu(this);
+	    }
 	}
 	
 	/**
@@ -123,6 +131,19 @@ public class BlockScape extends PApplet
 	 */
 	public void keyPressed()
 	{
+	    if (screenSelected == OptionsScreenEnum.worldMaker)
+	    {
+	        if (key == BACKSPACE)
+	        {
+	            if(TextBoxRegistry.worldNamer.input.length()>0)
+	                TextBoxRegistry.worldNamer.input = TextBoxRegistry.worldNamer.input.substring(0, TextBoxRegistry.worldNamer.input.length() - 1);
+	        }
+	        else if (key != TAB || key != ENTER || key != ESC || key != SHIFT || key != RETURN)
+	            TextBoxRegistry.worldNamer.input = TextBoxRegistry.worldNamer.input + key;
+	        
+	        return;
+	    }
+	    
 	    if (screenSelected != OptionsScreenEnum.noScreen)
 	    {
 	        key = 0;
@@ -178,20 +199,13 @@ public class BlockScape extends PApplet
 	}
 	
 	
-	//Mouse Wheel Constants
-	public final int mwUP = -1;
-	public final int mwDWN = 1;
-	public static int selectedBlockID = 1;
-	public static Block selectedBlock = Block.blockStone; //Default Block
-	
 	/**
 	 * called when the mouse wheel is used
 	 * @param delta up (-1) down (1)
 	 */
 	public void mouseWheel(int delta)
 	{
-		  
-	    if (delta == mwUP)
+	    if (delta == Hardware.mwUP)
 	    {
 	        selectedBlockID++;
 	        
@@ -199,7 +213,7 @@ public class BlockScape extends PApplet
 	            selectedBlockID = 1;
 	    }
 	    
-	    if (delta == mwDWN)
+	    if (delta == Hardware.mwDWN)
 	    {
 	        selectedBlockID--;
 	        
@@ -220,8 +234,6 @@ public class BlockScape extends PApplet
             BlockScape.endgame();
         if (ButtonRegistry.loadWorld.held)
         {
-            LogHelper.info("BUTTON PRESSED");
-            
             try
             {
                 World.setWorld(SaveData.getWorldSaveData(worldName));
@@ -235,12 +247,33 @@ public class BlockScape extends PApplet
             }
             finally
             {
-                ButtonRegistry.loadWorld.update();
+                ButtonRegistry.loadWorld.mOvr = false;
             }
             
             clearOptionsScreen();
-            
         }
+        if (ButtonRegistry.newWorld.held)
+            setOptionsScreen(OptionsScreenEnum.worldMaker);
+        if (ButtonRegistry.createWorld.held)
+        {
+            worldName = TextBoxRegistry.worldNamer.input;
+            
+            try
+            {
+                generateNewWorld(worldName, this);
+            }
+            catch (FileNotFoundException e)
+            {
+                e.printStackTrace();
+            }
+            finally
+            {
+                ButtonRegistry.createWorld.mOvr = false;
+            }
+            
+            clearOptionsScreen();
+        }
+            
     }
 	
 	public static void setOptionsScreen(OptionsScreenEnum screenSelected_)

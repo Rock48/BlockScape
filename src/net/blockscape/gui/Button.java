@@ -11,7 +11,9 @@ public class Button
     float x, y, w, h;
     int r1, g1, b1, r2, g2, b2, rt, gt, bt;
     
-    boolean border, mOvr;
+    boolean border;
+
+    public boolean mOvr;
     
     public boolean held;
     
@@ -61,10 +63,10 @@ public class Button
          host.textFont(f);
          host.textAlign(PConstants.CENTER);
          host.fill(rt, gt, bt);
-         host.text(text, w  /2, h / 2 + f.getSize() / 3);
+         host.text(text, w / 2, h / 2 + f.getSize() / 3);
          host.popMatrix();
       
-         if(host.mouseX >= x && host.mouseX <= x+w && host.mouseY >= y && host.mouseY <= y+h)
+         if(host.mouseX >= x && host.mouseX <= x + w && host.mouseY >= y && host.mouseY <= y + h)
              mOvr = true;
          else
              mOvr = false;
@@ -72,7 +74,7 @@ public class Button
          if(mOvr)
          {
              if(host.mousePressed)
-                 held = true; 
+                 held = true;
          }
       
          if(!host.mousePressed)

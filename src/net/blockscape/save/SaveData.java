@@ -29,7 +29,7 @@ public class SaveData
         
         try
         {
-            if (!Files.exists(FileHelper.getPathFromString(FileHelper.getFileDirectoryString())))
+            if (!Files.exists(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER)))
                 Files.createDirectories(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER));
             else
             {
@@ -57,7 +57,6 @@ public class SaveData
     {
         for (WorldSave save: saves)
         {
-            LogHelper.debug(save.getName() + " " + name);
             if (save.getName().equals(name))
                 return saves.indexOf(save);
         }
@@ -94,9 +93,6 @@ public class SaveData
                 Files.createFile(FileHelper.getPathFromString(FileHelper.getFileDirectoryString() + Saves.WORLD_SAVES_FOLDER + File.separator + saves.get(index).getName() + File.separator + Saves.PLAYER_FILE_NAME));
                 b = true;
             }
-            
-            LogHelper.debug(a + " ");
-            LogHelper.debug(b + " ");
             
             if(a && b)
             	return true;

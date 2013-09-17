@@ -5,12 +5,10 @@ import processing.core.PApplet;
 
 public class TextBoxRegistry
 {
-
-    //Test
-    public static TextBox test;
+    public static TextBox worldNamer;
     
     public static void init(PApplet host)
     {
-        test = new TextBox(20, 20, 200, 100, "This is a test:", true, FontRegistry.buttonFont, host);
+        worldNamer = new TextBox(420, 200, 500, 100, "Please name your world:", true, FontRegistry.buttonFont, host);
     }
 }

@@ -109,13 +109,24 @@ public class DrawingAndLogicHelper
     }
     
     /**
-     * Called every time the game loops when paused
+     * Called every time the game loops when main menu
      * @param host the game window
      */
     public static void drawMainMenu(PApplet host)
     {
         ButtonRegistry.loadWorld.update();
         ButtonRegistry.newWorld.update();
-        TextBoxRegistry.test.update();
     }
+    
+    /**
+     * Called every time the game loops when world creator menu
+     * @param host the game window
+     */
+    public static void drawWorldCreateMenu(PApplet host)
+    {
+        TextBoxRegistry.worldNamer.update();
+        ButtonRegistry.createWorld.update();
+    }
+    
+    
 }

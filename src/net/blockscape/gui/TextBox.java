@@ -11,9 +11,12 @@ public class TextBox
     float x, y, w, h;
     
     boolean border;
+    boolean mOvr;
     
     String titleText;
     PFont f;
+    
+    public String input;
     
     public TextBox(float x, float y, float w, float h, String titleText, boolean border, PFont textFont, PApplet host)
     {
@@ -25,6 +28,8 @@ public class TextBox
         this.border = border;
         this.f = textFont;
         this.host = host;
+        
+        mOvr = false;
     }
     
     public void update()
@@ -40,12 +45,25 @@ public class TextBox
         
         host.fill(200, 200, 200);
         host.rect(0, 0, w, h);
+        host.fill(255);
+        host.rect(w / 30, h / 2, w - 2 * (w / 30), h / 2.5F);
         host.textFont(f);
-        host.textAlign(PConstants.TOP);
+        host.textAlign(PConstants.CENTER);
         host.fill(0, 0, 0);
-        host.text(titleText, w  / 2, h / 2 + f.getSize() / 3);
+        host.text(titleText, w / 2, h / 3); //TODO Make not so specific to world maker.
+        
+        if (input != null)
+            host.text(input, w / 2, h / 1.3F); //TODO Same here as above.
+        else
+            host.text("|", w / 2, h / 1.3F); //TODO Same here as above.
+            
         
         
         host.popMatrix();
+        
+        if(host.mouseX >= x && host.mouseX <= x + w && host.mouseY >= y && host.mouseY <= y + h)
+            mOvr = true;
+        else
+            mOvr = false;
     }
 }
