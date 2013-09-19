@@ -17,12 +17,8 @@ import net.blockscape.gui.OptionsScreenEnum;
 import net.blockscape.helper.*;
 import net.blockscape.lib.Hardware;
 import net.blockscape.lib.MainReference;
-import net.blockscape.registry.ButtonRegistry;
-import net.blockscape.registry.GameRegistry;
-import net.blockscape.registry.RegistryRegistry;
-import net.blockscape.registry.TextBoxRegistry;
-import net.blockscape.save.SaveData;
-import net.blockscape.save.WorldSave;
+import net.blockscape.registry.*;
+import net.blockscape.save.*;
 import net.blockscape.world.World;
 import net.blockscape.world.WorldBlock;
 
@@ -138,49 +134,50 @@ public class BlockScape extends PApplet
 	            if(TextBoxRegistry.worldNamer.input.length()>0)
 	                TextBoxRegistry.worldNamer.input = TextBoxRegistry.worldNamer.input.substring(0, TextBoxRegistry.worldNamer.input.length() - 1);
 	        }
-	        else if (key != TAB && key != ENTER && key != ESC && keyCode != SHIFT && key != RETURN && keyCode != 14)
+	        else if (GeneralHelper.isAlphaNumericInput(key, keyCode))
 	            TextBoxRegistry.worldNamer.input = TextBoxRegistry.worldNamer.input + key;
 	        
 	        return;
 	    }
-	    
-	    if (screenSelected != OptionsScreenEnum.noScreen)
+	    else if (screenSelected == OptionsScreenEnum.noScreen)
 	    {
-	        key = 0;
-	        return;
+        	if (key == ' ' && ground)
+        	    Player.setYvelocity(-3);
+        	if (key == 'a')
+        	    Player.left = true;
+        	if (key == 'd')
+        	    Player.right = true;
+        	if (key == 'w' && isFlyMode)
+                Player.up = true;
+        	if (key == 's' && isFlyMode)
+                Player.down = true;
+        	if (key == ENTER)
+        	{
+        		Player.setX(mouseX);
+        		Player.setY(mouseY);
+        	}
+        	if (key == 'r' && !World.isBlockLocationOpen(mouseX / 16, (height - mouseY) / 16))
+        	{
+        	    WorldBlock block = World.getBlock(mouseX / 16, (height - mouseY) / 16);
+                
+                if (block != null)
+                {
+                    selectedBlockID = block.getBlock().blockID;
+                    selectedBlock = block.getBlock();
+                }
+        	}
+        	
+        	if (key == ESC)
+        	{
+        	    key = 0;
+        	    setOptionsScreen(OptionsScreenEnum.mainPause);
+        	}
+        	
+        	return;
 	    }
 	    
-    	if (key == ' ' && ground)
-    	    Player.setYvelocity(-3);
-    	if (key == 'a')
-    	    Player.left = true;
-    	if (key == 'd')
-    	    Player.right = true;
-    	if (key == 'w' && isFlyMode)
-            Player.up = true;
-    	if (key == 's' && isFlyMode)
-            Player.down = true;
-    	if (key == ENTER)
-    	{
-    		Player.setX(mouseX);
-    		Player.setY(mouseY);
-    	}
-    	if (key == 'r' && !World.isBlockLocationOpen(mouseX / 16, (height - mouseY) / 16))
-    	{
-    	    WorldBlock block = World.getBlock(mouseX / 16, (height - mouseY) / 16);
-            
-            if (block != null)
-            {
-                selectedBlockID = block.getBlock().blockID;
-                selectedBlock = block.getBlock();
-            }
-    	}
-    	
-    	if (key == ESC)
-    	{
-    	    key = 0;
-    	    screenSelected = OptionsScreenEnum.mainPause;
-    	}
+        key = 0;
+        return;
 	}
 	
 	/**
