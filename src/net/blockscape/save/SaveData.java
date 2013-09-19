@@ -64,6 +64,11 @@ public class SaveData
         return -1;
     }
     
+    public static ArrayList<WorldSave> getSavesList()
+    {
+        return saves;
+    }
+    
     public static void addWorld(WorldSave world) throws FileNotFoundException
     {
         saves.add(world);

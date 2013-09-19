@@ -247,13 +247,16 @@ public class BlockScape extends PApplet
             }
             finally
             {
-                ButtonRegistry.loadWorld.mOvr = false;
+                ButtonRegistry.loadWorld.held = false;
             }
             
             clearOptionsScreen();
         }
         if (ButtonRegistry.newWorld.held)
+        {
             setOptionsScreen(OptionsScreenEnum.worldMaker);
+            ButtonRegistry.newWorld.held = false;
+        }
         if (ButtonRegistry.createWorld.held)
         {
             worldName = TextBoxRegistry.worldNamer.input;
@@ -268,7 +271,7 @@ public class BlockScape extends PApplet
             }
             finally
             {
-                ButtonRegistry.createWorld.mOvr = false;
+                ButtonRegistry.createWorld.held = false;
             }
             
             clearOptionsScreen();

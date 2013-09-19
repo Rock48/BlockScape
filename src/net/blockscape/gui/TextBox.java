@@ -18,6 +18,8 @@ public class TextBox
     
     public String input;
     
+    public int counter;
+    
     public TextBox(float x, float y, float w, float h, String titleText, boolean border, PFont textFont, PApplet host)
     {
         this.x = x;
@@ -30,6 +32,8 @@ public class TextBox
         this.host = host;
         
         mOvr = false;
+        
+        counter = 2000;
     }
     
     public void update()
@@ -52,10 +56,10 @@ public class TextBox
         host.fill(0, 0, 0);
         host.text(titleText, w / 2, h / 3); //TODO Make not so specific to world maker.
         
-        if (input != null)
-            host.text(input, w / 2, h / 1.3F); //TODO Same here as above.
+        if (((int) counter / 30) % 2 == 0)
+            host.text(input + "|", w / 2, h / 1.3F); //TODO Same here as above.
         else
-            host.text("|", w / 2, h / 1.3F); //TODO Same here as above.
+            host.text(input, w / 2, h / 1.3F); //TODO Same here as above.
             
         
         
@@ -65,5 +69,10 @@ public class TextBox
             mOvr = true;
         else
             mOvr = false;
+        
+        if (counter < 0)
+            counter = 2000;
+        else
+            counter--;
     }
 }
