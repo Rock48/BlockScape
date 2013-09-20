@@ -46,7 +46,7 @@ public class BlockScape extends PApplet
 	public static boolean isSaving;
 
 	//TODO VERRY TEMP WORLD NAME
-	public static String worldName = "hello";
+	public static String worldName = "world";
 	
 	/**
      * @param args
@@ -138,7 +138,7 @@ public class BlockScape extends PApplet
 	            if(TextBoxRegistry.worldNamer.input.length()>0)
 	                TextBoxRegistry.worldNamer.input = TextBoxRegistry.worldNamer.input.substring(0, TextBoxRegistry.worldNamer.input.length() - 1);
 	        }
-	        else if (key != TAB || key != ENTER || key != ESC || key != SHIFT || key != RETURN)
+	        else if (key != TAB && key != ENTER && key != ESC && keyCode != SHIFT && key != RETURN && keyCode != 14)
 	            TextBoxRegistry.worldNamer.input = TextBoxRegistry.worldNamer.input + key;
 	        
 	        return;
