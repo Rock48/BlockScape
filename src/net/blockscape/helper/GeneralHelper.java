@@ -5,7 +5,7 @@ import processing.core.PConstants;
 public class GeneralHelper
 {
 
-    public static boolean isAlphaNumericInput(char key, int keyCode)
+    public static boolean isCharInput(char key, int keyCode)
     {
         if (key != PConstants.TAB && key != PConstants.ENTER && key != PConstants.ESC && keyCode != PConstants.SHIFT && key != PConstants.RETURN && keyCode != PConstants.LEFT && keyCode != PConstants.RIGHT && keyCode != PConstants.DOWN && keyCode != PConstants.UP && keyCode != PConstants.ALT)
             return true;

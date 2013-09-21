@@ -128,5 +128,12 @@ public class DrawingAndLogicHelper
         ButtonRegistry.createWorld.update();
     }
     
-    
+    /**
+     * Called every time the game loops when world selector menu
+     * @param host the game window
+     */
+    public static void drawWorldSelectionMenu(PApplet host)
+    {
+        
+    }
 }

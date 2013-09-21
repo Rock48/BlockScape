@@ -120,6 +120,11 @@ public class BlockScape extends PApplet
 	        background(100, 100, 207);
             DrawingAndLogicHelper.drawWorldCreateMenu(this);
 	    }
+	    else if (screenSelected == OptionsScreenEnum.worldSelector)
+	    {
+	        background(100, 100, 207);
+            DrawingAndLogicHelper.drawWorldSelectionMenu(this);
+	    }
 	}
 	
 	/**
@@ -134,7 +139,7 @@ public class BlockScape extends PApplet
 	            if(TextBoxRegistry.worldNamer.input.length()>0)
 	                TextBoxRegistry.worldNamer.input = TextBoxRegistry.worldNamer.input.substring(0, TextBoxRegistry.worldNamer.input.length() - 1);
 	        }
-	        else if (GeneralHelper.isAlphaNumericInput(key, keyCode))
+	        else if (GeneralHelper.isCharInput(key, keyCode))
 	            TextBoxRegistry.worldNamer.input = TextBoxRegistry.worldNamer.input + key;
 	        
 	        return;
