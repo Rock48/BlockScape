@@ -1,15 +1,15 @@
 package net.blockscape;
 
 import net.blockscape.helper.IconHelper;
-import net.blockscape.helper.LogHelper;
 import net.blockscape.world.World;
 import net.blockscape.world.WorldBlock;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
 
 public class Player
- {
+{
 	
     static PImage texture;
 	private static float x, y, width, height, xvelocity, yvelocity;
@@ -48,8 +48,8 @@ public class Player
 	public static void update()
 	{
 		
-		setY(getY() + getYvelocity()*((BlockScape)host).deltaTime);
-		setX(getX() + xvelocity*((BlockScape)host).deltaTime);
+		setY(getY() + getYvelocity() * ((BlockScape) host).deltaTime);
+		setX(getX() + xvelocity * ((BlockScape)host).deltaTime);
 		
 		
 		

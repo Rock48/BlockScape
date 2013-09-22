@@ -184,37 +184,11 @@ public class BlockScape extends PApplet
         	return;
 	    }
 	    
-    	if (key == ' ' && ground)
-    	    Player.setYvelocity(-180);
-    	if (key == 'a')
-    	    Player.left = true;
-    	if (key == 'd')
-    	    Player.right = true;
-    	if (key == 'w' && isFlyMode)
-            Player.up = true;
-    	if (key == 's' && isFlyMode)
-            Player.down = true;
-    	if (key == ENTER)
-    	{
-    		Player.setX(mouseX);
-    		Player.setY(mouseY);
-    	}
-    	if (key == 'r' && !World.isBlockLocationOpen(mouseX / 16, (height - mouseY) / 16))
-    	{
-    	    WorldBlock block = World.getBlock(mouseX / 16, (height - mouseY) / 16);
-            
-            if (block != null)
-            {
-                selectedBlockID = block.getBlock().blockID;
-                selectedBlock = block.getBlock();
-            }
-    	}
-    	
-    	if (key == ESC)
-    	{
-    	    key = 0;
-    	    screenSelected = OptionsScreenEnum.mainPause;
-    	}
+	    if (key == ESC)
+	    {
+	        key = 0;
+	        return;
+	    }
 	}
 	
 	/**
