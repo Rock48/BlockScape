@@ -58,7 +58,6 @@ public class Player
 			xvelocity -= 30*((BlockScape)host).deltaTime;
 			
 			if (((BlockScape) host).ground)
-				LogHelper.debug(String.valueOf(xvelocity));
 				xvelocity -= 150*((BlockScape)host).deltaTime;
 		}
 		
