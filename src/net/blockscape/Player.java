@@ -1,6 +1,7 @@
 package net.blockscape;
 
 import net.blockscape.helper.IconHelper;
+import net.blockscape.helper.LogHelper;
 import net.blockscape.world.World;
 import net.blockscape.world.WorldBlock;
 import processing.core.PApplet;
@@ -46,45 +47,47 @@ public class Player
 	 */
 	public static void update()
 	{
-		setY(getY() + getYvelocity());
-		setX(getX() + xvelocity);
 		
-		if (xvelocity > -0.1 && xvelocity < 0.1)
-			xvelocity = 0;
+		setY(getY() + getYvelocity()*((BlockScape)host).deltaTime);
+		setX(getX() + xvelocity*((BlockScape)host).deltaTime);
+		
+		
 		
 		if (xvelocity > 0)
 		{
-			xvelocity -= 0.01;
+			xvelocity -= 30*((BlockScape)host).deltaTime;
 			
 			if (((BlockScape) host).ground)
-				xvelocity -= 0.09;
+				LogHelper.debug(String.valueOf(xvelocity));
+				xvelocity -= 150*((BlockScape)host).deltaTime;
 		}
 		
 		if (xvelocity<0)
 		{
-			xvelocity += 0.01;
+			xvelocity += 30*((BlockScape)host).deltaTime;
 			
 			if (((BlockScape) host).ground)
-				xvelocity += 0.09;
+				xvelocity += 150*((BlockScape)host).deltaTime;
 		}
 		
-		if (xvelocity >= -2)
+		if (xvelocity >= -120)
 		{
 			if (left)
-			    xvelocity-=0.15;
+			    xvelocity-=300*((BlockScape)host).deltaTime;
 		}
-		if (xvelocity <= 2)
+		if (xvelocity <= 120)
 		{
 			if (right)
-			    xvelocity += 0.15;
+			    xvelocity += 300*((BlockScape)host).deltaTime;
 		}
 		
-		if(yvelocity>7.5)yvelocity=7.5F;
-		if(yvelocity<-7.5)yvelocity=-7.5F;
+		if(yvelocity>1000)yvelocity=1000F;
+		if(yvelocity<-1000)yvelocity=-1000F;
 		
-		if(xvelocity>7.5)xvelocity=7.5F;
-		if(xvelocity<-7.5)xvelocity=-7.5F;
-		
+		if(xvelocity>1000)xvelocity=1000F;
+		if(xvelocity<-1000)xvelocity=-1000F;
+		if (xvelocity > -3 && xvelocity < 3)
+			xvelocity = 0;
 		boolean onGround = false;
 		PVector leftSideHigh,rightSideHigh,leftSideLow,rightSideLow,topSide,bottomSide,groundCheck;
 		leftSideHigh = new PVector();

@@ -26,6 +26,7 @@ import processing.core.PApplet;
 
 public class BlockScape extends PApplet
 {
+	public float deltaTime;
 	private static final long serialVersionUID = -1390024970025652247L; //Dunno
 	
 	public static float distBetweenPlayerAndMouse; //The distance between the player and the user's mouse
@@ -57,6 +58,7 @@ public class BlockScape extends PApplet
 	 */
 	public void setup()
 	{
+		
 	    ground = false;
 	    isFlyMode = false;
 	    screenSelected = OptionsScreenEnum.mainScreen;
@@ -91,6 +93,7 @@ public class BlockScape extends PApplet
 	 */
 	public void draw()
 	{
+		deltaTime = 1/frameRate;
 	    if (screenSelected == OptionsScreenEnum.noScreen)
 	    {
 	        isSaving = true;
@@ -181,8 +184,37 @@ public class BlockScape extends PApplet
         	return;
 	    }
 	    
-        key = 0;
-        return;
+    	if (key == ' ' && ground)
+    	    Player.setYvelocity(-180);
+    	if (key == 'a')
+    	    Player.left = true;
+    	if (key == 'd')
+    	    Player.right = true;
+    	if (key == 'w' && isFlyMode)
+            Player.up = true;
+    	if (key == 's' && isFlyMode)
+            Player.down = true;
+    	if (key == ENTER)
+    	{
+    		Player.setX(mouseX);
+    		Player.setY(mouseY);
+    	}
+    	if (key == 'r' && !World.isBlockLocationOpen(mouseX / 16, (height - mouseY) / 16))
+    	{
+    	    WorldBlock block = World.getBlock(mouseX / 16, (height - mouseY) / 16);
+            
+            if (block != null)
+            {
+                selectedBlockID = block.getBlock().blockID;
+                selectedBlock = block.getBlock();
+            }
+    	}
+    	
+    	if (key == ESC)
+    	{
+    	    key = 0;
+    	    screenSelected = OptionsScreenEnum.mainPause;
+    	}
 	}
 	
 	/**

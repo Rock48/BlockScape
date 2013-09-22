@@ -30,7 +30,7 @@ public class DrawingAndLogicHelper
 			b.updateAndDraw();
 
 		rotSinTim += 0.05;
-		Player.setYvelocity(Player.getYvelocity() + 0.1F);
+		Player.setYvelocity(Player.getYvelocity() + 270F*((BlockScape) host).deltaTime);
 		
 		BlockScape.distBetweenPlayerAndMouse = PApplet.dist(Player.getX() + Player.getWidth() / 2, Player.getY() + Player.getHeight() / 2, host.mouseX, host.mouseY)/16;
 		
