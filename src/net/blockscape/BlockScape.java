@@ -191,7 +191,10 @@ public class BlockScape extends PApplet
         	
         	return;
 	    }
-	    
+	    else if (screenSelected == OptionsScreenEnum.mainPause){
+	    	if (key == ESC)
+	    	setOptionsScreen(OptionsScreenEnum.noScreen);
+	    }
 	    if (key == ESC)
 	    {
 	        key = 0;
