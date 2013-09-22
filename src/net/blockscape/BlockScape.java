@@ -14,14 +14,21 @@ import java.net.URL;
 
 import net.blockscape.block.Block;
 import net.blockscape.gui.OptionsScreenEnum;
-import net.blockscape.helper.*;
+import net.blockscape.helper.DrawingAndLogicHelper;
+import net.blockscape.helper.GeneralHelper;
+import net.blockscape.helper.IconHelper;
+import net.blockscape.helper.LogHelper;
+import net.blockscape.helper.TerrainGenerationHelper;
 import net.blockscape.lib.Hardware;
 import net.blockscape.lib.MainReference;
-import net.blockscape.registry.*;
-import net.blockscape.save.*;
+import net.blockscape.registry.ButtonRegistry;
+import net.blockscape.registry.GameRegistry;
+import net.blockscape.registry.RegistryRegistry;
+import net.blockscape.registry.TextBoxRegistry;
+import net.blockscape.save.SaveData;
+import net.blockscape.save.WorldSave;
 import net.blockscape.world.World;
 import net.blockscape.world.WorldBlock;
-
 import processing.core.PApplet;
 
 public class BlockScape extends PApplet
@@ -149,8 +156,9 @@ public class BlockScape extends PApplet
 	    }
 	    else if (screenSelected == OptionsScreenEnum.noScreen)
 	    {
-        	if (key == ' ' && ground)
-        	    Player.setYvelocity(-3);
+	    	if (key == ' ' && ground){
+	    	    Player.setYvelocity(-180);
+	    	}
         	if (key == 'a')
         	    Player.left = true;
         	if (key == 'd')
