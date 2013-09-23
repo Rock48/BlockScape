@@ -13,6 +13,6 @@ public class FontRegistry
     {
         buttonFont = host.createFont("Arial", 24, true);
         inGameFont = host.createFont("Arial", 14, true);
-        titleFont = host.loadFont("AtomicAge-48.vlw");
+        titleFont = host.loadFont("AtomicAge-92.vlw");
     }
 }

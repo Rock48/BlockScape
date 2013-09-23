@@ -18,7 +18,7 @@ public class DrawingAndLogicHelper
 	static float rotSinTim;
 	
 	/**
-	 * Called every time the game loops non-paused
+	 * Called every time the game loops in game-play
 	 * @param host the game window
 	 */
 	public static void drawGame(PApplet host)
@@ -114,6 +114,9 @@ public class DrawingAndLogicHelper
      */
     public static void drawMainMenu(PApplet host)
     {
+        host.textFont(FontRegistry.titleFont);
+        host.text(MainReference.GAME_NAME, host.width / 2, 100);
+        
         ButtonRegistry.loadWorld.update();
         ButtonRegistry.newWorld.update();
     }

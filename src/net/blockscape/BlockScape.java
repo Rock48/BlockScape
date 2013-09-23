@@ -158,7 +158,7 @@ public class BlockScape extends PApplet
 	    else if (screenSelected == OptionsScreenEnum.noScreen)
 	    {
 	    	if (key == ' ' && ground)
-	    	    Player.setYvelocity(-180);
+	    	    Player.setYvelocity(MainReference.JUMP_AMOUNT * MainReference.FRAME_RATE);
         	if (key == 'a')
         	    Player.left = true;
         	if (key == 'd')
