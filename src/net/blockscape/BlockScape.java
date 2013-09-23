@@ -101,6 +101,7 @@ public class BlockScape extends PApplet
 	public void draw()
 	{
 		deltaTime = 1/frameRate;
+		
 	    if (screenSelected == OptionsScreenEnum.noScreen)
 	    {
 	        isSaving = true;
@@ -156,9 +157,8 @@ public class BlockScape extends PApplet
 	    }
 	    else if (screenSelected == OptionsScreenEnum.noScreen)
 	    {
-	    	if (key == ' ' && ground){
+	    	if (key == ' ' && ground)
 	    	    Player.setYvelocity(-180);
-	    	}
         	if (key == 'a')
         	    Player.left = true;
         	if (key == 'd')
@@ -184,17 +184,14 @@ public class BlockScape extends PApplet
         	}
         	
         	if (key == ESC)
-        	{
-        	    key = 0;
         	    setOptionsScreen(OptionsScreenEnum.mainPause);
-        	}
-        	
-        	return;
 	    }
-	    else if (screenSelected == OptionsScreenEnum.mainPause){
+	    else if (screenSelected == OptionsScreenEnum.mainPause)
+	    {
 	    	if (key == ESC)
-	    	setOptionsScreen(OptionsScreenEnum.noScreen);
+	    	    clearOptionsScreen();
 	    }
+	    
 	    if (key == ESC)
 	    {
 	        key = 0;
