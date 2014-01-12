@@ -93,7 +93,7 @@ public class DrawingAndLogicHelper
         
         
         ButtonRegistry.returnToGame.update();
-        ButtonRegistry.exitGame.update();
+        ButtonRegistry.returnToMenu.update();
         ButtonRegistry.flyMode.update();
         
         if (BlockScape.isFlyMode)
@@ -119,6 +119,7 @@ public class DrawingAndLogicHelper
         
         ButtonRegistry.loadWorld.update();
         ButtonRegistry.newWorld.update();
+        ButtonRegistry.exitGame.update();
     }
     
     /**

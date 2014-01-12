@@ -248,6 +248,11 @@ public class BlockScape extends PApplet
             clearOptionsScreen();
         if (ButtonRegistry.exitGame.held)
             BlockScape.endgame();
+        if (ButtonRegistry.returnToMenu.held)
+        {
+            setOptionsScreen(OptionsScreenEnum.mainScreen);
+            ButtonRegistry.returnToMenu.held = false;
+        }
         if (ButtonRegistry.loadWorld.held)
         {
             try
