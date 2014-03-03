@@ -9,8 +9,8 @@ public class TextBoxRegistry
     
     public static void init(PApplet host)
     {
-        worldNamer = new TextBox(420, 200, 500, 100, "Please name your world:", true, FontRegistry.buttonFont, host);
+        worldNamer = new TextBox(400, 200, 500, 100, "Please name your world:", true, FontRegistry.buttonFont, host);
         
-        worldNamer.input = "world";
+        worldNamer.input = "New World";
     }
 }

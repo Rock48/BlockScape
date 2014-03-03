@@ -50,7 +50,7 @@ public class BlockScape extends PApplet
 	public static boolean isSaving;
 
 	//TODO VERRY TEMP WORLD NAME
-	public static String worldName = "world";
+	public static String worldName = "New World";
 	
 	/**
      * @param args
@@ -296,6 +296,11 @@ public class BlockScape extends PApplet
             }
             
             clearOptionsScreen();
+        }
+        if (ButtonRegistry.backFromCreate.held)
+        {
+            setOptionsScreen(OptionsScreenEnum.mainScreen);
+            ButtonRegistry.backFromCreate.held = false;
         }
             
     }

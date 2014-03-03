@@ -116,6 +116,8 @@ public class DrawingAndLogicHelper
     {
         host.textFont(FontRegistry.titleFont);
         host.text(MainReference.GAME_NAME, host.width / 2, 100);
+        host.textFont(FontRegistry.buttonFont);
+        host.text(MainReference.CREATOR_CREDIT, host.width / 2, 150);
         
         ButtonRegistry.loadWorld.update();
         ButtonRegistry.newWorld.update();
@@ -130,6 +132,7 @@ public class DrawingAndLogicHelper
     {
         TextBoxRegistry.worldNamer.update();
         ButtonRegistry.createWorld.update();
+        ButtonRegistry.backFromCreate.update();
     }
     
     /**

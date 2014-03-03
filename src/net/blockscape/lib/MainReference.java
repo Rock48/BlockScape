@@ -4,6 +4,7 @@ public class MainReference
 {
 
     public static final String GAME_NAME = "BlockScape"; //Name of the Game
+    public static final String CREATOR_CREDIT = "Made by Rock with much help from Darth the Pterodactyl"; //Credit to Creators
     public static final int MAX_REACH = 5; //Distance you can build away from you
     public static final int FRAME_RATE = 60;
     public static final float JUMP_AMOUNT = -2.6F;
