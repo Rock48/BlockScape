@@ -1,7 +1,6 @@
 package net.blockscape.helper;
 
 import net.blockscape.BlockScape;
-import net.blockscape.Player;
 import net.blockscape.block.Block;
 import net.blockscape.lib.MainReference;
 import net.blockscape.registry.ButtonRegistry;
@@ -30,18 +29,18 @@ public class DrawingAndLogicHelper
 			b.updateAndDraw();
 
 		rotSinTim += 0.05;
-		Player.setYvelocity(Player.getYvelocity() + 270F * ((BlockScape) host).deltaTime);
+		BlockScape.player.setYvelocity(BlockScape.player.getYvelocity() + 270F * ((BlockScape) host).deltaTime);
 		
-		BlockScape.distBetweenPlayerAndMouse = PApplet.dist(Player.getX() + Player.getWidth() / 2, Player.getY() + Player.getHeight() / 2, host.mouseX, host.mouseY)/16;
+		BlockScape.distBetweenPlayerAndMouse = PApplet.dist(BlockScape.player.getX() + BlockScape.player.getWidth() / 2, BlockScape.player.getY() + BlockScape.player.getHeight() / 2, host.mouseX, host.mouseY)/16;
 		
 		if(BlockScape.distBetweenPlayerAndMouse < MainReference.MAX_REACH && BlockScape.distBetweenPlayerAndMouse > 1)
 			BlockScape.canPlaceOrRemoveBlock = true;
 		else
 			BlockScape.canPlaceOrRemoveBlock = false;
 		
-		Player.update();
+		BlockScape.player.update();
 		
-		Player.draw();
+		BlockScape.player.draw();
 		
 		if(BlockScape.selectedBlock != null)
 		{
@@ -89,7 +88,7 @@ public class DrawingAndLogicHelper
         for(WorldBlock b: World.getWorld())
             b.updateAndDraw();
         
-        Player.draw();
+        BlockScape.player.draw();
         
         
         ButtonRegistry.returnToGame.update();

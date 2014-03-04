@@ -52,6 +52,7 @@ public class BlockScape extends PApplet
 	//TODO VERRY TEMP WORLD NAME
 	public static String worldName = "New World";
 	
+	public static Player player;
 	/**
      * @param args
      */
@@ -74,7 +75,7 @@ public class BlockScape extends PApplet
 	    SaveData.initDirectory(this);
 	    RegistryRegistry.init(this);
 	    IconHelper.init(this);
-	    Player.initPlayer(width / 2, 0, this);
+	    player = new Player(width / 2, 0, this);
         Block.blockInit();
         
         selectedBlock = GameRegistry.getBlock(selectedBlockID);
@@ -116,7 +117,7 @@ public class BlockScape extends PApplet
 	        DrawingAndLogicHelper.drawPauseMenu(this);
 	        
 	        if (saveDisplayCounter == 100)
-	            SaveData.saveGame(new WorldSave(worldName, World.getWorld()));
+	            SaveData.saveGame(new WorldSave(worldName, World.getWorld(), player));
 	        
 	        if (--saveDisplayCounter < 0)
 	            isSaving = false;
@@ -158,19 +159,19 @@ public class BlockScape extends PApplet
 	    else if (screenSelected == OptionsScreenEnum.noScreen)
 	    {
 	    	if (key == ' ' && ground)
-	    	    Player.setYvelocity(MainReference.JUMP_AMOUNT * MainReference.FRAME_RATE);
+	    	    player.setYvelocity(MainReference.JUMP_AMOUNT * MainReference.FRAME_RATE);
         	if (key == 'a')
-        	    Player.left = true;
+        	    player.left = true;
         	if (key == 'd')
-        	    Player.right = true;
+        	    player.right = true;
         	if (key == 'w' && isFlyMode)
-                Player.up = true;
+                player.up = true;
         	if (key == 's' && isFlyMode)
-                Player.down = true;
+                player.down = true;
         	if (key == ENTER)
         	{
-        		Player.setX(mouseX);
-        		Player.setY(mouseY);
+        		player.setX(mouseX);
+        		player.setY(mouseY);
         	}
         	if (key == 'r' && !World.isBlockLocationOpen(mouseX / 16, (height - mouseY) / 16))
         	{
@@ -205,13 +206,13 @@ public class BlockScape extends PApplet
 	public void keyReleased()
 	{
     	if (key=='a')
-    	    Player.left = false;
+    	    player.left = false;
     	if (key=='d')
-    	    Player.right = false;
+    	    player.right = false;
     	if (key == 'w')
-            Player.up = false;
+            player.up = false;
         if (key == 's')
-            Player.down = false;
+            player.down = false;
 	}
 	
 	
@@ -258,8 +259,8 @@ public class BlockScape extends PApplet
             try
             {
                 World.setWorld(SaveData.getWorldSaveData(worldName));
-                Player.setX(SaveData.getPlayerX(worldName));
-                Player.setY(SaveData.getPlayerY(worldName));
+                player.setX(SaveData.getPlayerX(worldName));
+                player.setY(SaveData.getPlayerY(worldName));
             }
             catch (IOException e)
             {
@@ -323,7 +324,7 @@ public class BlockScape extends PApplet
 	public static void generateNewWorld(String name, PApplet host) throws FileNotFoundException
 	{
 	    World.initBlankWorld();
-        SaveData.addWorld(new WorldSave(name, World.getWorld()));
+        SaveData.addWorld(new WorldSave(name, World.getWorld(),player));
         TerrainGenerationHelper.generateWorld(host);
 	}
 }

@@ -3,10 +3,13 @@ package net.blockscape.world;
 import net.blockscape.BlockScape;
 import net.blockscape.block.Block;
 import net.blockscape.gui.OptionsScreenEnum;
+
+import org.msgpack.annotation.Message;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
-
+@Message
 public class WorldBlock
 {
 	public PVector loc;

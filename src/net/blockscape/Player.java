@@ -1,5 +1,7 @@
 package net.blockscape;
 
+import org.msgpack.annotation.Message;
+
 import net.blockscape.helper.IconHelper;
 import net.blockscape.world.World;
 import net.blockscape.world.WorldBlock;
@@ -8,12 +10,13 @@ import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
 
+@Message
 public class Player
 {
 	
     static PImage texture;
-	private static float x, y, width, height, xvelocity, yvelocity;
-	public static boolean right, left, up, down;
+	public float x, y, width, height, xvelocity, yvelocity;
+	public boolean right, left, up, down;
 	static PApplet host;
 	
 	/**
@@ -22,7 +25,7 @@ public class Player
 	 * @param y_
 	 * @param host_ game window for drawing
 	 */
-	public static void initPlayer(int x_, int y_, PApplet host_)
+	public Player(int x_, int y_, PApplet host_)
 	{
 		setX(x_);
 		setY(y_);
@@ -35,17 +38,17 @@ public class Player
 	/**
 	 * draws the player
 	 */
-	public static void draw()
+	public void draw()
 	{
 		host.imageMode(PApplet.CORNER);
 		host.noStroke();
-		host.image(texture, Player.getX(), Player.getY());
+		host.image(texture, this.getX(), this.getY());
 	}
 	
 	/**
 	 * updates collisions and player position
 	 */
-	public static void update()
+	public void update()
 	{
 		
 		setY(getY() + getYvelocity() * ((BlockScape) host).deltaTime);
@@ -150,7 +153,7 @@ public class Player
 	/**
 	 * @return the x
 	 */
-	public static float getX()
+	public float getX()
 	{
 		return x;
 	}
@@ -158,15 +161,15 @@ public class Player
 	/**
 	 * @param x the x to set
 	 */
-	public static void setX(float x)
+	public void setX(float x)
 	{
-		Player.x = x;
+		this.x = x;
 	}
 	
 	/**
 	 * @return the y
 	 */
-	public static float getY()
+	public float getY()
 	{
 		return y;
 	}
@@ -174,15 +177,15 @@ public class Player
 	/**
 	 * @param y the y to set
 	 */
-	public static void setY(float y)
+	public void setY(float y)
 	{
-		Player.y = y;
+		this.y = y;
 	}
 	
 	/**
 	 * @return the yvelocity
 	 */
-	public static float getYvelocity()
+	public float getYvelocity()
 	{
 		return yvelocity;
 	}
@@ -190,15 +193,15 @@ public class Player
 	/**
 	 * @param yvelocity the yvelocity to set
 	 */
-	public static void setYvelocity(float yvelocity)
+	public void setYvelocity(float yvelocity)
 	{
-		Player.yvelocity = yvelocity;
+		this.yvelocity = yvelocity;
 	}
 	
 	/**
 	 * @return the width
 	 */
-	public static float getWidth()
+	public float getWidth()
 	{
 		return width;
 	}
@@ -206,15 +209,15 @@ public class Player
 	/**
 	 * @param width the width to set
 	 */
-	public static void setWidth(float width)
+	public void setWidth(float width)
 	{
-		Player.width = width;
+		this.width = width;
 	}
 	
 	/**
 	 * @return the height
 	 */
-	public static float getHeight()
+	public float getHeight()
 	{
 		return height;
 	}
@@ -222,9 +225,9 @@ public class Player
 	/**
 	 * @param height the height to set
 	 */
-	public static void setHeight(float height)
+	public void setHeight(float height)
 	{
-		Player.height = height;
+		this.height = height;
 	}
 }
 
