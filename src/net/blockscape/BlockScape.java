@@ -1,7 +1,7 @@
 /*
  * BlockScape
  * Written and Developed by Rock
- * Lots of Help from Darth
+ * Lots of Help from Darth the Pterodactyl
  */
 
 package net.blockscape;
@@ -9,7 +9,6 @@ package net.blockscape;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.URL;
 
 import net.blockscape.block.Block;
@@ -29,6 +28,7 @@ import net.blockscape.save.SaveData;
 import net.blockscape.save.WorldSave;
 import net.blockscape.world.World;
 import net.blockscape.world.WorldBlock;
+
 import processing.core.PApplet;
 
 public class BlockScape extends PApplet
@@ -257,26 +257,12 @@ public class BlockScape extends PApplet
             setOptionsScreen(OptionsScreenEnum.mainScreen);
             ButtonRegistry.returnToMenu.held = false;
         }
-        if (ButtonRegistry.loadWorld.held)
+        /*if (ButtonRegistry.loadWorld.held)
         {
-            /*try
-            {
-                //World.setWorld(SaveData.getWorldSaveData(worldName));
-                //player.setX(SaveData.getPlayerX(worldName));
-                //player.setY(SaveData.getPlayerY(worldName));
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-                return;
-            }
-            finally
-            {
-                ButtonRegistry.loadWorld.held = false;
-            }*/
+            ButtonRegistry.loadWorld.held = false;
             
             clearOptionsScreen();
-        }
+        }*/
         if (ButtonRegistry.newWorld.held)
         {
             setOptionsScreen(OptionsScreenEnum.worldMaker);

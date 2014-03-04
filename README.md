@@ -5,7 +5,12 @@ An awesome game based upon a 2D Sandbox block experience.
 
 Yes, we know it looks like Terraria, but this was meant to be a medium-sized project that we could just have fun with.
 
-Uses the Processing libraries, which can be found here: http://processing.org/
+Uses the following external libraries:
+
+Java: http://www.java.com/en/
+Processing: http://processing.org/
+Javassist: http://www.csg.ci.i.u-tokyo.ac.jp/~chiba/javassist/
+MessagePack: http://wiki.msgpack.org/display/MSGPACK/QuickStart+for+Java
 
 #Current Features
 

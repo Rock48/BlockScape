@@ -25,6 +25,7 @@ public class WorldSave
         save.velx = player.xvelocity;
         save.vely = player.yvelocity;
         save.block = new int[BlockScape.instance.width/16+1][BlockScape.instance.height/16];
+        
         for (int x = 0; x < BlockScape.instance.width/16+1; x++)
 		{
 			for (int y = 0; y < BlockScape.instance.height/16; y++)
@@ -33,7 +34,8 @@ public class WorldSave
 			}
 		}
     }
-    public WorldSave(Save s){
+    public WorldSave(Save s)
+    {
     	
     }
     

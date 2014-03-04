@@ -7,28 +7,22 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
-import net.blockscape.Player;
 import net.blockscape.helper.FileHelper;
 import net.blockscape.helper.LogHelper;
 import net.blockscape.lib.MainReference;
 import net.blockscape.lib.Saves;
-import net.blockscape.world.WorldBlock;
 
 import org.msgpack.MessagePack;
 import org.msgpack.packer.Packer;
 
 import processing.core.PApplet;
-import processing.core.PImage;
-import processing.core.PVector;
 
 public class SaveData
 {
     private static ArrayList<WorldSave> saves;
-    private static PApplet host;
-
     public static void initDirectory(PApplet host_)
+    
     {
-        host = host_;
         saves = new ArrayList<WorldSave>();
         
         try
@@ -56,30 +50,40 @@ public class SaveData
             e.printStackTrace();
         }
     }
-    public static void saveGame(WorldSave save){
+    
+    public static void saveGame(WorldSave save)
+    {
     	MessagePack msgpack = new MessagePack();
     	String name = save.getName();
-    	ArrayList<WorldBlock> blocks = save.blocks;
-    	Player player = save.player;
     	ByteArrayOutputStream out = new ByteArrayOutputStream();
     	Packer packer = msgpack.createPacker(out);
-        try {
+    	
+        try
+        {
 			packer.write(save.save);
-		} catch (IOException e) {
+		}
+        catch (IOException e)
+        {
 			e.printStackTrace();
 		}
+        
         File savefile = new File(FileHelper.getAbsoluteFileDirectoryString() + File.separator + "saves" + File.separator + name + ".jif");
         
-        
-        try{
+        try
+        {
         	savefile.createNewFile();
         	FileOutputStream stream = new FileOutputStream(savefile);
         	out.writeTo(stream);
-        }catch(Exception e){e.printStackTrace();}
-        
+        }
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
         
     }
-    public static void loadGame(String filename){
+    
+    public static void loadGame(String filename)
+    {
     	
     }
 }
