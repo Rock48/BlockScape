@@ -13,11 +13,11 @@ import processing.core.PVector;
 public class WorldBlock
 {
 	public PVector loc;
-	Block block;
+	private Block block;
 	public float width;
 	public float height;
-	PApplet host;
-	PVector worldCoords;
+	private PApplet host;
+	private PVector worldCoords;
 	
 	/**
 	 * Creates a new block for putting in the world

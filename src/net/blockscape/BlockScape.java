@@ -53,6 +53,8 @@ public class BlockScape extends PApplet
 	public static String worldName = "New World";
 	
 	public static Player player;
+	
+	public static BlockScape instance;
 	/**
      * @param args
      */
@@ -66,11 +68,12 @@ public class BlockScape extends PApplet
 	 */
 	public void setup()
 	{
-		
+		instance = this;
 	    ground = false;
 	    isFlyMode = false;
 	    screenSelected = OptionsScreenEnum.mainScreen;
         
+	    
 	    LogHelper.init();
 	    SaveData.initDirectory(this);
 	    RegistryRegistry.init(this);
@@ -117,7 +120,7 @@ public class BlockScape extends PApplet
 	        DrawingAndLogicHelper.drawPauseMenu(this);
 	        
 	        if (saveDisplayCounter == 100)
-	            SaveData.saveGame(new WorldSave(worldName, World.getWorld(), player));
+	            SaveData.saveGame(new WorldSave(worldName,new World(), player));
 	        
 	        if (--saveDisplayCounter < 0)
 	            isSaving = false;
@@ -256,11 +259,11 @@ public class BlockScape extends PApplet
         }
         if (ButtonRegistry.loadWorld.held)
         {
-            try
+            /*try
             {
-                World.setWorld(SaveData.getWorldSaveData(worldName));
-                player.setX(SaveData.getPlayerX(worldName));
-                player.setY(SaveData.getPlayerY(worldName));
+                //World.setWorld(SaveData.getWorldSaveData(worldName));
+                //player.setX(SaveData.getPlayerX(worldName));
+                //player.setY(SaveData.getPlayerY(worldName));
             }
             catch (IOException e)
             {
@@ -270,7 +273,7 @@ public class BlockScape extends PApplet
             finally
             {
                 ButtonRegistry.loadWorld.held = false;
-            }
+            }*/
             
             clearOptionsScreen();
         }
@@ -324,7 +327,7 @@ public class BlockScape extends PApplet
 	public static void generateNewWorld(String name, PApplet host) throws FileNotFoundException
 	{
 	    World.initBlankWorld();
-        SaveData.addWorld(new WorldSave(name, World.getWorld(),player));
+        //SaveData.addWorld(new WorldSave(name, World.getWorld(),player));
         TerrainGenerationHelper.generateWorld(host);
 	}
 }

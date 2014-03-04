@@ -2,8 +2,11 @@ package net.blockscape.block;
 
 import net.blockscape.helper.IconHelper;
 import net.blockscape.registry.GameRegistry;
-import processing.core.PImage;
 
+import org.msgpack.annotation.Message;
+
+import processing.core.PImage;
+@Message
 public class Block
 {
 

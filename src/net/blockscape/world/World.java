@@ -2,6 +2,9 @@ package net.blockscape.world;
 
 import java.util.ArrayList;
 
+import net.blockscape.BlockScape;
+import net.blockscape.block.Block;
+
 import processing.core.PVector;
 
 public class World
@@ -114,7 +117,7 @@ public class World
             }
         }
 	    
-	    return null;
+	    return new WorldBlock(0,0,new Block(0),BlockScape.instance);
 	}
 	
 	/**
