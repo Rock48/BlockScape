@@ -4,9 +4,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.List;
 
 import net.blockscape.BlockScape;
 import net.blockscape.Player;
@@ -128,5 +130,17 @@ public class SaveData
     	player.y = save.y;
     	player.xvelocity = save.velx;
     	player.yvelocity = save.vely;
+    }
+    public List<String> getSaves(){
+    	File savedir = new File(FileHelper.getAbsoluteFileDirectoryString() + File.separator + "saves" + File.separator);
+    	File[] listOfFiles = savedir.listFiles();
+    	List<String> filenames = new ArrayList<String>();
+    	for(int i = 0; i < listOfFiles.length; i++){
+    		String filename = listOfFiles[i].getName();
+    		if(filename.endsWith(".jif")){
+    			filenames.add(filename);
+    		}
+    	}
+    	return filenames;
     }
 }
