@@ -33,7 +33,7 @@ import processing.core.PApplet;
 public class BlockScape extends PApplet
 {
 	public float deltaTime;
-	private static final long serialVersionUID = -1390024970025652247L; //Dunno
+	private static final long serialVersionUID = 4L; //Bump this up for every commit
 	
 	public static float distBetweenPlayerAndMouse; //The distance between the player and the user's mouse
 	
@@ -81,6 +81,7 @@ public class BlockScape extends PApplet
         Block.blockInit();
         
         selectedBlock = GameRegistry.getBlock(selectedBlockID);
+        
         
         //Frame Stuffs
 		size(1280,720);
@@ -254,12 +255,12 @@ public class BlockScape extends PApplet
         if (ButtonRegistry.returnToMenu.held)
         {
             setOptionsScreen(OptionsScreenEnum.mainScreen);
-            World.setWorld(null);
+            
             ButtonRegistry.returnToMenu.held = false;
         }
         if (ButtonRegistry.loadWorld.held)
         {
-            
+            World.setWorld(null);
             try{
                 SaveData.loadGame(worldName,player);
             }catch(Exception e){e.printStackTrace();System.exit(1);}

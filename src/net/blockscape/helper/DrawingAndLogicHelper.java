@@ -6,6 +6,7 @@ import net.blockscape.lib.MainReference;
 import net.blockscape.registry.ButtonRegistry;
 import net.blockscape.registry.FontRegistry;
 import net.blockscape.registry.TextBoxRegistry;
+import net.blockscape.save.SaveData;
 import net.blockscape.world.World;
 import net.blockscape.world.WorldBlock;
 
@@ -15,7 +16,7 @@ import processing.core.PConstants;
 public class DrawingAndLogicHelper
 {
 	static float rotSinTim;
-	
+	static long oldTime = 0;
 	/**
 	 * Called every time the game loops in game-play
 	 * @param host the game window
@@ -41,6 +42,13 @@ public class DrawingAndLogicHelper
 		BlockScape.player.update();
 		
 		BlockScape.player.draw();
+		
+		long curTime = System.currentTimeMillis();
+		
+		if(curTime >= oldTime + 30*1000){
+		    SaveData.saveGame(BlockScape.worldName);
+		    oldTime = System.currentTimeMillis();
+		}
 		
 		if(BlockScape.selectedBlock != null)
 		{
