@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.net.URL;
 
 import net.blockscape.block.Block;
+import net.blockscape.gui.Button;
 import net.blockscape.gui.OptionsScreenEnum;
 import net.blockscape.helper.DrawingAndLogicHelper;
 import net.blockscape.helper.GeneralHelper;
@@ -27,7 +28,6 @@ import net.blockscape.registry.TextBoxRegistry;
 import net.blockscape.save.SaveData;
 import net.blockscape.world.World;
 import net.blockscape.world.WorldBlock;
-
 import processing.core.PApplet;
 
 public class BlockScape extends PApplet
@@ -263,7 +263,7 @@ public class BlockScape extends PApplet
         {
             setOptionsScreen(OptionsScreenEnum.worldSelector);
             ButtonRegistry.loadWorld.held = false;
-            ButtonRegistry.init(this);
+            ButtonRegistry.generateWorldButtons();
             //clearOptionsScreen();
         }
         if (ButtonRegistry.newWorld.held)
@@ -295,7 +295,18 @@ public class BlockScape extends PApplet
             setOptionsScreen(OptionsScreenEnum.mainScreen);
             ButtonRegistry.backFromCreate.held = false;
         }
-            
+        for (Button b : ButtonRegistry.worldButtons){
+            if(b.held){
+                try {
+                    SaveData.loadGame(b.getText(), player);
+                    clearOptionsScreen();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    b.held = false;
+                }
+            }
+        }
     }
 	
 	public static void setOptionsScreen(OptionsScreenEnum screenSelected_)

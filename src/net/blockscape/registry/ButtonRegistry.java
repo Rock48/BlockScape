@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import net.blockscape.BlockScape;
 import net.blockscape.gui.Button;
+import net.blockscape.helper.GeneralHelper;
 import net.blockscape.save.SaveData;
 import processing.core.PApplet;
 
@@ -40,15 +41,23 @@ public class ButtonRegistry
         backFromCreate = new Button(400, 340, 200, 70, "Cancel", true, FontRegistry.buttonFont, host);
         
         
+        generateWorldButtons();
         
+    }
+    public static void generateWorldButtons(){
         worldButtons = new ArrayList<Button>();
         
         int wbY = 1;
+        int wbX = 0;
         
         for(String s : SaveData.getSaves())
         {
-        	worldButtons.add(new Button(75, wbY * 75, 200, 50, s, true, FontRegistry.buttonFont, BlockScape.instance));
-        	wbY++;
+            worldButtons.add(new Button(50 + wbX * 350, wbY * 50, 300, 35, GeneralHelper.getTokenFromEnd(s, "\\.", 2), true, FontRegistry.buttonFont, BlockScape.instance));
+            wbY++;
+            if(wbY>9){
+                wbY=1;
+                wbX++;
+            }
         }
     }
 }
