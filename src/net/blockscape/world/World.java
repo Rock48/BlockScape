@@ -25,7 +25,8 @@ public class World
 		return blocks;
 	}
 	
-	public static void setWorld(ArrayList<WorldBlock> world){
+	public static void setWorld(ArrayList<WorldBlock> world)
+	{
 		blocks = world;
 	}
 	

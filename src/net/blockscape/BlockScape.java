@@ -33,7 +33,7 @@ import processing.core.PApplet;
 public class BlockScape extends PApplet
 {
 	public float deltaTime;
-	private static final long serialVersionUID = 4L; //Bump this up for every commit
+	private static final long serialVersionUID = 5L; //Bump this up for every commit
 	
 	public static float distBetweenPlayerAndMouse; //The distance between the player and the user's mouse
 	
@@ -220,7 +220,6 @@ public class BlockScape extends PApplet
             player.down = false;
 	}
 	
-	
 	/**
 	 * called when the mouse wheel is used
 	 * @param delta up (-1) down (1)
@@ -317,7 +316,6 @@ public class BlockScape extends PApplet
 	public static void generateNewWorld(String name, PApplet host) throws FileNotFoundException
 	{
 	    World.initBlankWorld();
-        //SaveData.addWorld(new WorldSave(name, World.getWorld(),player));
         TerrainGenerationHelper.generateWorld(host);
 	}
 }

@@ -148,7 +148,8 @@ public class DrawingAndLogicHelper
      */
     public static void drawWorldSelectionMenu(PApplet host)
     {
-        for(Button b : ButtonRegistry.worldButtons){
+        for(Button b : ButtonRegistry.worldButtons)
+        {
         	b.update();
         }
     }

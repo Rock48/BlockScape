@@ -23,6 +23,7 @@ public class ButtonRegistry
     public static Button createWorld;
     public static Button backFromCreate;
     
+    //Button Array
     public static ArrayList<Button> worldButtons;
     
     public static void init(PApplet host)
@@ -38,12 +39,15 @@ public class ButtonRegistry
         createWorld = new Button(700, 340, 200, 70, "Create World!", true, FontRegistry.buttonFont, host);
         backFromCreate = new Button(400, 340, 200, 70, "Cancel", true, FontRegistry.buttonFont, host);
         
+        
+        
         worldButtons = new ArrayList<Button>();
         
         int wbY = 1;
         
-        for(String s : SaveData.getSaves()){
-        	worldButtons.add(new Button(75,wbY*75,200,50,s,true, FontRegistry.buttonFont,BlockScape.instance));
+        for(String s : SaveData.getSaves())
+        {
+        	worldButtons.add(new Button(75, wbY * 75, 200, 50, s, true, FontRegistry.buttonFont, BlockScape.instance));
         	wbY++;
         }
     }
