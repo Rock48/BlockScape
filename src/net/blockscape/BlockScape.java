@@ -25,7 +25,6 @@ import net.blockscape.registry.GameRegistry;
 import net.blockscape.registry.RegistryRegistry;
 import net.blockscape.registry.TextBoxRegistry;
 import net.blockscape.save.SaveData;
-import net.blockscape.save.WorldSave;
 import net.blockscape.world.World;
 import net.blockscape.world.WorldBlock;
 
@@ -120,7 +119,7 @@ public class BlockScape extends PApplet
 	        DrawingAndLogicHelper.drawPauseMenu(this);
 	        
 	        if (saveDisplayCounter == 100)
-	            SaveData.saveGame(new WorldSave(worldName,new World(), player));
+	            SaveData.saveGame(worldName);
 	        
 	        if (--saveDisplayCounter < 0)
 	            isSaving = false;
@@ -255,14 +254,19 @@ public class BlockScape extends PApplet
         if (ButtonRegistry.returnToMenu.held)
         {
             setOptionsScreen(OptionsScreenEnum.mainScreen);
+            World.setWorld(null);
             ButtonRegistry.returnToMenu.held = false;
         }
-        /*if (ButtonRegistry.loadWorld.held)
+        if (ButtonRegistry.loadWorld.held)
         {
+            
+            try{
+                SaveData.loadGame(worldName,player);
+            }catch(Exception e){e.printStackTrace();System.exit(1);}
             ButtonRegistry.loadWorld.held = false;
             
             clearOptionsScreen();
-        }*/
+        }
         if (ButtonRegistry.newWorld.held)
         {
             setOptionsScreen(OptionsScreenEnum.worldMaker);
