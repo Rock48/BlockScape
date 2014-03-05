@@ -2,6 +2,7 @@ package net.blockscape.helper;
 
 import net.blockscape.BlockScape;
 import net.blockscape.block.Block;
+import net.blockscape.gui.Button;
 import net.blockscape.lib.MainReference;
 import net.blockscape.registry.ButtonRegistry;
 import net.blockscape.registry.FontRegistry;
@@ -9,7 +10,6 @@ import net.blockscape.registry.TextBoxRegistry;
 import net.blockscape.save.SaveData;
 import net.blockscape.world.World;
 import net.blockscape.world.WorldBlock;
-
 import processing.core.PApplet;
 import processing.core.PConstants;
 
@@ -148,6 +148,8 @@ public class DrawingAndLogicHelper
      */
     public static void drawWorldSelectionMenu(PApplet host)
     {
-        
+        for(Button b : ButtonRegistry.worldButtons){
+        	b.update();
+        }
     }
 }

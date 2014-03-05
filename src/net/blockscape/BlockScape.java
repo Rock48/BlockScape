@@ -201,6 +201,8 @@ public class BlockScape extends PApplet
 	        key = 0;
 	        return;
 	    }
+	    
+	    
 	}
 	
 	/**
@@ -260,13 +262,10 @@ public class BlockScape extends PApplet
         }
         if (ButtonRegistry.loadWorld.held)
         {
-            World.setWorld(null);
-            try{
-                SaveData.loadGame(worldName,player);
-            }catch(Exception e){e.printStackTrace();System.exit(1);}
+            setOptionsScreen(OptionsScreenEnum.worldSelector);
             ButtonRegistry.loadWorld.held = false;
-            
-            clearOptionsScreen();
+            ButtonRegistry.init(this);
+            //clearOptionsScreen();
         }
         if (ButtonRegistry.newWorld.held)
         {

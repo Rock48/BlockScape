@@ -106,4 +106,8 @@ public class Button
      {
          this.text = text;
      }
+     
+     public String getText(){
+    	 return this.text;
+     }
   }

@@ -1,7 +1,10 @@
 package net.blockscape.registry;
 
-import net.blockscape.gui.Button;
+import java.util.ArrayList;
 
+import net.blockscape.BlockScape;
+import net.blockscape.gui.Button;
+import net.blockscape.save.SaveData;
 import processing.core.PApplet;
 
 public class ButtonRegistry
@@ -20,6 +23,8 @@ public class ButtonRegistry
     public static Button createWorld;
     public static Button backFromCreate;
     
+    public static ArrayList<Button> worldButtons;
+    
     public static void init(PApplet host)
     {
         returnToGame = new Button(540, 360, 200, 70, "Return To Game", true, FontRegistry.buttonFont, host);
@@ -32,5 +37,14 @@ public class ButtonRegistry
         
         createWorld = new Button(700, 340, 200, 70, "Create World!", true, FontRegistry.buttonFont, host);
         backFromCreate = new Button(400, 340, 200, 70, "Cancel", true, FontRegistry.buttonFont, host);
+        
+        worldButtons = new ArrayList<Button>();
+        
+        int wbY = 1;
+        
+        for(String s : SaveData.getSaves()){
+        	worldButtons.add(new Button(75,wbY*75,200,50,s,true, FontRegistry.buttonFont,BlockScape.instance));
+        	wbY++;
+        }
     }
 }

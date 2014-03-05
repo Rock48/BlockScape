@@ -131,7 +131,7 @@ public class SaveData
     	player.xvelocity = save.velx;
     	player.yvelocity = save.vely;
     }
-    public List<String> getSaves(){
+    public static List<String> getSaves(){
     	File savedir = new File(FileHelper.getAbsoluteFileDirectoryString() + File.separator + "saves" + File.separator);
     	File[] listOfFiles = savedir.listFiles();
     	List<String> filenames = new ArrayList<String>();
