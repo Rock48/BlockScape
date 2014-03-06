@@ -82,7 +82,7 @@ public class BlockScape extends PApplet
         selectedBlock = GameRegistry.getBlock(selectedBlockID);
         
         //Frame Stuffs
-		size(1280,720);
+		size(1280,720,OPENGL);
 		
 		if(frame != null)
 		{
