@@ -42,9 +42,10 @@ public class ButtonRegistry
         
         
         generateWorldButtons();
-        
     }
-    public static void generateWorldButtons(){
+    
+    public static void generateWorldButtons()
+    {
         worldButtons = new ArrayList<Button>();
         
         int wbY = 1;
@@ -53,8 +54,11 @@ public class ButtonRegistry
         for(String s : SaveData.getSaves())
         {
             worldButtons.add(new Button(50 + wbX * 350, wbY * 50, 300, 35, GeneralHelper.getTokenFromEnd(s, "\\.", 2), true, FontRegistry.buttonFont, BlockScape.instance));
+            
             wbY++;
-            if(wbY>9){
+            
+            if(wbY>9)
+            {
                 wbY=1;
                 wbX++;
             }

@@ -152,6 +152,7 @@ public class DrawingAndLogicHelper
         {
         	b.update();
         }
+        
         ButtonRegistry.returnToMenu.update();
     }
 }

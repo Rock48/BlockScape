@@ -12,7 +12,9 @@ public class GeneralHelper
         else
             return false;
     }
-    public static String getTokenFromEnd(String str, String separatorRegex, int dist) {
+    
+    public static String getTokenFromEnd(String str, String separatorRegex, int dist)
+    {
         String tokens[] = str.split(separatorRegex);
         return tokens[tokens.length - dist];
     }

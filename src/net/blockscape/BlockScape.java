@@ -33,7 +33,7 @@ import processing.core.PApplet;
 public class BlockScape extends PApplet
 {
 	public float deltaTime;
-	private static final long serialVersionUID = 5L; //Bump this up for every commit
+	private static final long serialVersionUID = 6L; //Bump this up for every commit
 	
 	public static float distBetweenPlayerAndMouse; //The distance between the player and the user's mouse
 	
@@ -71,7 +71,6 @@ public class BlockScape extends PApplet
 	    ground = false;
 	    isFlyMode = false;
 	    screenSelected = OptionsScreenEnum.mainScreen;
-        
 	    
 	    LogHelper.init();
 	    SaveData.initDirectory(this);
@@ -81,7 +80,6 @@ public class BlockScape extends PApplet
         Block.blockInit();
         
         selectedBlock = GameRegistry.getBlock(selectedBlockID);
-        
         
         //Frame Stuffs
 		size(1280,720);
@@ -201,8 +199,6 @@ public class BlockScape extends PApplet
 	        key = 0;
 	        return;
 	    }
-	    
-	    
 	}
 	
 	/**
@@ -264,7 +260,6 @@ public class BlockScape extends PApplet
             setOptionsScreen(OptionsScreenEnum.worldSelector);
             ButtonRegistry.loadWorld.held = false;
             ButtonRegistry.generateWorldButtons();
-            //clearOptionsScreen();
         }
         if (ButtonRegistry.newWorld.held)
         {
@@ -295,14 +290,23 @@ public class BlockScape extends PApplet
             setOptionsScreen(OptionsScreenEnum.mainScreen);
             ButtonRegistry.backFromCreate.held = false;
         }
-        for (Button b : ButtonRegistry.worldButtons){
-            if(b.held){
-                try {
+        
+        
+        for (Button b : ButtonRegistry.worldButtons)
+        {
+            if(b.held)
+            {
+                try
+                {
                     SaveData.loadGame(b.getText(), player);
                     clearOptionsScreen();
-                } catch (Exception e) {
+                }
+                catch (Exception e)
+                {
                     e.printStackTrace();
-                } finally {
+                }
+                finally
+                {
                     b.held = false;
                 }
             }
