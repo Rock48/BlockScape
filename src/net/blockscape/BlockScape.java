@@ -33,7 +33,7 @@ import processing.core.PApplet;
 public class BlockScape extends PApplet
 {
 	public float deltaTime;
-	private static final long serialVersionUID = 6L; //Bump this up for every commit
+	private static final long serialVersionUID = 8L; //Bump this up for every commit
 	
 	public static float distBetweenPlayerAndMouse; //The distance between the player and the user's mouse
 	
@@ -299,6 +299,7 @@ public class BlockScape extends PApplet
                 try
                 {
                     SaveData.loadGame(b.getText(), player);
+                    worldName = b.getText();
                     clearOptionsScreen();
                 }
                 catch (Exception e)
